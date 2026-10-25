@@ -106,7 +106,7 @@ Return JSON with this EXACT structure (strictly ${mabhathCount} sections, each s
   "faculty": "الكلية أو القسم",
   "course": "المادة أو التخصص",
   "instructor": "الأستاذ المشرف",
-  "date": "2024 / 1446",
+  "date": "",
   "language": "${language || 'ar'}",
   "domain": "technology | management | economics | medicine | accounting | general",
   "themeVariant": "academic-royal | neom-tech | emerald-science | crimson-law | modern-slate",
@@ -146,16 +146,14 @@ Return JSON with this EXACT structure (strictly ${mabhathCount} sections, each s
               "title": "النماذج الكلاسيكية السائدة",
               "items": [
                 "بطء في الاستجابة وارتفاع تكاليف التشغيل",
-                "صعوبة في تتبع المتغيرات وإدارة المخاطر",
-                "محدودية التوسع وغياب المرونة التنظيمية"
+                "صعوبة في تتبع المتغيرات وإدارة المخاطر"
               ]
             },
             "colB": {
               "title": "المنظومة الحديثة المقترحة",
               "items": [
                 "معالجة متزامنة عالية السرعة والكفاءة",
-                "أتمتة ذكية وموثوقية عالية في تتبع البيانات",
-                "مرونة عالية في التكيف والتوسع المستقبلي"
+                "أتمتة ذكية وموثوقية عالية في تتبع البيانات"
               ]
             }
           },
@@ -163,127 +161,20 @@ Return JSON with this EXACT structure (strictly ${mabhathCount} sections, each s
         },
         {
           "id": "sec-1-3",
-          "title": "المطلب الثالث: موازنة المزايا والتحديات التنظيمية",
-          "layoutType": "pros_cons",
-          "paragraphs": ["موازنة موضوعية للمكتسبات والفرص في مقابل التحديات والقيود الميدانية."],
-          "bullets": [
-            "ميزة: تعزيز الكفاءة التشغيلية وخفض تكاليف العمليات",
-            "ميزة: رفع دقة المخرجات وتسريع دورة اتخاذ القرار",
-            "تحدي: متطلبات التهيئة التقنية وتأهيل الكوادر البشرية",
-            "تحدي: إدارة مقاومة التغيير المؤسسي"
-          ],
-          "keyPoint": "التخطيط الاستباقي وإدارة المخاطر يضمنان تعظيم المزايا وتجاوز التحديات."
-        }
-      ]
-    },
-    {
-      "id": "mabhath-2",
-      "title": "المبحث الثاني: التحليل التطبيقي ومؤشرات القياس الميداني",
-      "description": "القياس الإحصائي وتحليل البيانات الميدانية",
-      "subsections": [
-        {
-          "id": "sec-2-1",
-          "title": "المطلب الأول: المؤشرات الكمية ومعدلات الأداء المحققة",
+          "title": "المطلب الثالث: المؤشرات الكمية والقياس الميداني",
           "layoutType": "statistics",
           "chartType": "bar",
           "paragraphs": ["تحليل إحصائي يستعرض مؤشرات الأداء والنتائج الرقمية المسجلة ميدانياً."],
           "statistics": [
             { "label": "مؤشر الكفاءة التشغيلية", "value": "84", "unit": "%" },
             { "label": "معدل تقليص الفاقد الزمني", "value": "62", "unit": "%" },
-            { "label": "نسبة الدقة في المعالجة", "value": "95", "unit": "%" },
-            { "label": "معدل الرضا والاعتمادية", "value": "78", "unit": "%" }
+            { "label": "نسبة الدقة في المعالجة", "value": "95", "unit": "%" }
           ],
           "keyPoint": "تؤكد البيانات الميدانية قفزة نوعية في مؤشرات الأداء بعد تطبيق النموذج المقترح."
-        },
-        {
-          "id": "sec-2-2",
-          "title": "المطلب الثاني: مصفوفة القياس المتقاطع وتحليل النتائج",
-          "layoutType": "table",
-          "paragraphs": ["جدول تحليلي يلخص مخرجات القياس المقارن بين المتغيرات المدروسة."],
-          "table": {
-            "headers": ["المعيار الأكاديمي", "الوضع المرجعي", "الوضع بعد التطبيق", "نسبة التحسن"],
-            "rows": [
-              ["سرعة الاستجابة", "24 ساعة", "1.5 ساعة", "+93%"],
-              ["معدل الخطأ", "8.2%", "0.4%", "-95%"],
-              ["الإنتاجية الكلية", "45 وحدة/ساعة", "120 وحدة/ساعة", "+166%"],
-              ["مستوى الامتثال", "60%", "98%", "+63%"]
-            ]
-          },
-          "keyPoint": "يعكس الجدول التحليلي تحولاً جذرياً في مؤشرات الفاعلية والامتثال المؤسسي."
-        },
-        {
-          "id": "sec-2-3",
-          "title": "المطلب الثالث: اختبار الفرضيات وتفسير العلاقات التأثيرية",
-          "layoutType": "definition",
-          "definitionTerm": "دلالة الفرضيات وأثر المتغيرات",
-          "paragraphs": ["اختبار الفرضيات الإحصائية وتحديد حجم الأثر للمتغيرات المستقلة والوسيطة."],
-          "bullets": [
-            "إثبات الفرضية الأولى بوجود أثر ذي دلالة إحصائية عند مستوى ثقة 95%",
-            "تحييد أثر العوامل الخارجية وضبط حدود العينة البحثية",
-            "تفسير الفروق الجوهرية بين القطاعات محل الدراسة التطبيقية"
-          ],
-          "keyPoint": "تثبت الاختبارات الإحصائية صحة الفرضيات وصلاحية النموذج المقترح للتطبيق."
-        }
-      ]
-    },
-    {
-      "id": "mabhath-3",
-      "title": "المبحث الثالث: التقييم الاستراتيجي وآفاق التطوير المستقبلية",
-      "description": "خارطة التحول والحوكمة المؤسسية",
-      "subsections": [
-        {
-          "id": "sec-3-1",
-          "title": "المطلب الأول: خارطة طريق ومراحل التطبيق المنهجي",
-          "layoutType": "process_steps",
-          "paragraphs": ["تسلسل زمني ومرحلي لتنفيذ مخرجات الدراسة وتطبيقها العملي."],
-          "numbered": [
-            "مرحلة التهيئة والتقييم الأولي للجاهزية وتحديد المتطلبات",
-            "مرحلة التطوير وإعادة هندسة العمليات وتدريب الكفاءات",
-            "مرحلة الإطلاق التجريبي والقياس المرحلي للنتائج",
-            "مرحلة التعميم والتحسين المستمر وحوكمة المخرجات"
-          ],
-          "keyPoint": "التطبيق المتدرج يضمن مرونة التحول واستيعاب التغيير بكفاءة واستدامة."
-        },
-        {
-          "id": "sec-3-2",
-          "title": "المطلب الثاني: آليات الحوكمة وإدارة المخاطر التشغيلية",
-          "layoutType": "comparison",
-          "paragraphs": ["حوكمة الإجراءات لضمان الاستمرارية والامتثال التنظيمي الشامل."],
-          "comparison": {
-            "colA": {
-              "title": "مخاطر غياب الحوكمة",
-              "items": [
-                "تعطل سلاسل العمليات وهدر الموارد",
-                "تسرب البيانات وفقدان السرية والخصوصية",
-                "غرامات ومسؤوليات قانونية وتنظيمية"
-              ]
-            },
-            "colB": {
-              "title": "ضوابط الحوكمة المقترحة",
-              "items": [
-                "تدقيق ومراجعة دورية مستقلة للإجراءات",
-                "سياسات أمنية صارمة وتشفير كامل للبيانات",
-                "أطر واضحة للمساءلة والشفافية المؤسسية"
-              ]
-            }
-          },
-          "keyPoint": "الحوكمة الرشيدة هي صمام الأمان لتحقيق استدامة المكتسبات وحماية الموارد."
-        },
-        {
-          "id": "sec-3-3",
-          "title": "المطلب الثالث: الرؤية الاستشرافية وممكنات التميز",
-          "layoutType": "pros_cons",
-          "paragraphs": ["استشراف المسارات المستقبلية وتحديد أولويات التطوير طويل المدى."],
-          "bullets": [
-            "ميزة: بناء ميزة تنافسية مستدامة على المدى الطويل",
-            "ميزة: تمكين بيئة الابتكار ودعم ريادة الأعمال",
-            "تحدي: مواكبة التسارع التقني والمتغيرات البيئية",
-            "تحدي: متطلبات التمويل المستدام والاستثمار المتجدد"
-          ],
-          "keyPoint": "التكامل بين الرؤية الاستراتيجية والتنفيذ المرن هو مفتاح الريادة المستقبلية."
         }
       ]
     }
+    // You MUST generate strictly all ${mabhathCount} sections (mabhath-1 through mabhath-${mabhathCount}), each containing exactly ${matlabCount} subsections (sec-X-Y) with varied communicative layouts ("definition"|"comparison"|"statistics"|"process_steps"|"pros_cons"|"table")
   ],
   "conclusion": "تخلص الدراسة إلى أن النموذج المقترح يمثل حلاً منهجياً متكاملاً يعزز الكفاءة ويحقق التكامل المؤسسي المستدام.",
   "conclusionPoints": [
@@ -294,8 +185,7 @@ Return JSON with this EXACT structure (strictly ${mabhathCount} sections, each s
   "references": [
     "العلوي، محمد (2023). مناهج البحث العلمي والتأصيل الأكاديمي، دار الفكر العربي، الرياض.",
     "الغامدي، سعيد (2022). استراتيجيات التحول والتطوير المؤسسي، جامعة الملك سعود، الرياض.",
-    "Johnson, R. & Miller, K. (2021). Advanced Analytical Frameworks in Modern Research, Oxford University Press.",
-    "Smith, A. (2022). Quantitative Evaluation and Strategic Decision Making, Cambridge University Press."
+    "Johnson, R. & Miller, K. (2021). Advanced Analytical Frameworks in Modern Research, Oxford University Press."
   ]
 }`;
 }
@@ -360,13 +250,13 @@ export async function generatePresentationWithAI(params) {
     matlabCount
   });
 
-  const preferredModel = (model || 'gemini-3.8-flash').trim();
-  // Build fallback model chain, prioritizing gemini-3.8-flash if a deprecated model was selected
+  const preferredModel = (model || 'gemini-2.5-flash').trim();
+  // Build fallback model chain, prioritizing fast, official Gemini models
   const modelsToTry = [
     preferredModel,
-    'gemini-3.8-flash',
     'gemini-2.5-flash',
-    'gemini-1.5-flash'
+    'gemini-1.5-flash',
+    'gemini-2.5-pro'
   ].filter((m, i, arr) => m && arr.indexOf(m) === i);
 
   let response = null;
@@ -386,6 +276,19 @@ export async function generatePresentationWithAI(params) {
 
     const url = `${GEMINI_API_ENDPOINT}/${currentModel}:generateContent?key=${apiKey.trim()}`;
 
+    const isGemini25 = currentModel.includes('2.5');
+    const generationConfig = {
+      responseMimeType: 'application/json',
+      temperature: 0.3,
+      topP: 0.95
+    };
+    // Disable thinking budget on 2.5-flash to eliminate 15-20s waiting latency
+    if (isGemini25) {
+      generationConfig.thinkingConfig = {
+        thinkingBudget: 0
+      };
+    }
+
     const requestBody = {
       contents: [
         {
@@ -395,11 +298,7 @@ export async function generatePresentationWithAI(params) {
           ]
         }
       ],
-      generationConfig: {
-        responseMimeType: 'application/json',
-        temperature: 0.35,
-        topP: 0.95
-      }
+      generationConfig
     };
 
     try {
@@ -412,6 +311,28 @@ export async function generatePresentationWithAI(params) {
       });
     } catch (networkError) {
       throw new Error(`تعذر الاتصال بخادم الذكاء الاصطناعي: ${networkError.message}. يرجى التحقق من اتصالك بالإنترنت.`);
+    }
+
+    if (!response.ok) {
+      let errorDetail = '';
+      try {
+        const errJson = await response.json();
+        errorDetail = errJson?.error?.message || response.statusText;
+      } catch (e) {
+        errorDetail = response.statusText;
+      }
+
+      // If thinkingConfig caused an unexpected 400 error, retry once immediately without thinkingConfig
+      if (response.status === 400 && generationConfig.thinkingConfig && (errorDetail.includes('thinkingConfig') || errorDetail.includes('thinkingBudget'))) {
+        delete generationConfig.thinkingConfig;
+        try {
+          response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+          });
+        } catch (_) {}
+      }
     }
 
     if (!response.ok) {

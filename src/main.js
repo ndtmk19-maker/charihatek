@@ -218,7 +218,7 @@ function initAiGeneratorControls(router) {
     const slideCount = parseInt(document.getElementById('ai-slide-count')?.value, 10) || 16;
     const language = document.getElementById('ai-language')?.value || 'ar';
     const selectedTheme = document.getElementById('ai-theme-variant')?.value || 'econ-trend';
-    const aiModel = document.getElementById('select-ai-model')?.value || 'gemini-3.8-flash';
+    const aiModel = document.getElementById('select-ai-model')?.value || 'gemini-2.5-flash';
 
     const course = document.getElementById('ai-course')?.value?.trim() || '';
     const author = document.getElementById('ai-author')?.value?.trim() || '';

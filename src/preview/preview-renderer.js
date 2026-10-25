@@ -210,18 +210,6 @@ function renderCoverSlideHtml(model, theme, domainInfo) {
             </div>
           </div>
         ` : ''}
-
-        ${model.date ? `
-          <div class="cover-meta-card" style="border-color: ${theme.border}; background: ${theme.surface};">
-            <span class="meta-icon" style="display: inline-flex; align-items: center; justify-content: center;">
-              ${renderIcon('calendar', { size: 20, color: theme.primary })}
-            </span>
-            <div class="meta-info">
-              <span class="meta-role">السنة الجامعية</span>
-              <strong class="meta-name" style="color: ${theme.textPrimary};">${escapeHtml(model.date)}</strong>
-            </div>
-          </div>
-        ` : ''}
       </div>
     </div>
   `;

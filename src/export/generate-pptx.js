@@ -300,11 +300,10 @@ function renderCoverSlide(pptx, slide, model, theme, domainInfo) {
     lineSpacingMultiple: 1.2
   });
 
-  // Metadata Footer Cards Grid (Student, Supervisor, Date) with Vector UIcons
+  // Metadata Footer Cards Grid (Student, Supervisor) with Vector UIcons
   const metaCards = [
     model.author ? { role: 'إعداد الباحث / الطالب', name: model.author, iconKey: 'user' } : null,
-    model.instructor ? { role: 'تحت إشراف الأستاذ', name: model.instructor, iconKey: 'supervisor' } : null,
-    model.date ? { role: 'السنة الجامعية', name: model.date, iconKey: 'calendar' } : null
+    model.instructor ? { role: 'تحت إشراف الأستاذ', name: model.instructor, iconKey: 'supervisor' } : null
   ].filter(Boolean);
 
   const cardW = metaCards.length > 0 ? (8.0 - (metaCards.length - 1) * 0.25) / metaCards.length : 2.5;
