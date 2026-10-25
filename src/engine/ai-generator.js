@@ -249,13 +249,14 @@ export async function generatePresentationWithAI(params) {
     matlabCount
   });
 
-  const preferredModel = (model || 'gemini-3.8-flash').trim();
+  const preferredModel = (model || 'gemini-3.5-flash-lite').trim();
   // Build fallback model chain, prioritizing fast, official Google Gemini models
   const modelsToTry = [
     preferredModel,
-    'gemini-3.8-flash',
     'gemini-3.5-flash-lite',
+    'gemini-3.8-flash',
     'gemini-2.5-flash',
+    'gemini-2.5-flash-lite',
     'gemini-1.5-flash'
   ].filter((m, i, arr) => m && arr.indexOf(m) === i);
 
@@ -271,7 +272,7 @@ export async function generatePresentationWithAI(params) {
       totalSteps: 5,
       message: mIdx === 0
         ? `جاري الاتصال بنموذج (${currentModel}) وصياغة الإشكالية والفرضيات...`
-        : `النموذج السابق غير متوفر، جاري الاتصال تلقائياً بنموذج (${currentModel})...`
+        : `النموذج السابق يواجه ضغطاً أو غير متاح، جاري الاتصال تلقائياً بنموذج (${currentModel})...`
     });
 
     const url = `${GEMINI_API_ENDPOINT}/${currentModel}:generateContent?key=${apiKey.trim()}`;
@@ -316,28 +317,44 @@ export async function generatePresentationWithAI(params) {
       }
 
       // Check for invalid API key
-      if (response.status === 400 && errorDetail.includes('API_KEY_INVALID')) {
-        throw new Error('مفتاح API غير صالح. يرجى التأكد من نسخ المفتاح بشكل صحيح من Google AI Studio.');
-      }
-      
-      // Check for Rate Limit
-      if (response.status === 429) {
-        throw new Error('تم تجاوز حد الطلبات المسموح (Rate Limit). يرجى الانتظار بضع ثوانٍ ثم المحاولة مجدداً.');
+      if (response.status === 400 && (errorDetail.includes('API_KEY_INVALID') || errorDetail.includes('API key not valid'))) {
+        throw new Error('مفتاح Google Gemini API غير صالح. يرجى التأكد من نسخ المفتاح بشكل صحيح من Google AI Studio.');
       }
 
-      // If model is unavailable (404), deprecated (400/404), or restricted (403), fallback to next model in list
-      const isModelUnavailable = response.status === 404 ||
-        response.status === 403 ||
-        response.status === 400 ||
-        errorDetail.includes('no longer available') ||
-        errorDetail.includes('not found') ||
-        errorDetail.includes('is not supported') ||
-        errorDetail.includes('is no longer supported');
-
-      if (isModelUnavailable && mIdx < modelsToTry.length - 1) {
-        console.warn(`Model ${currentModel} failed (${errorDetail}), falling back to ${modelsToTry[mIdx + 1]}...`);
+      // If we have alternative fallback models to try, ALWAYS switch seamlessly to the next model!
+      if (mIdx < modelsToTry.length - 1) {
+        const nextModel = modelsToTry[mIdx + 1];
         lastError = errorDetail;
+
+        let reasonLabel = 'غير متاح حالياً';
+        if (response.status === 503 || errorDetail.includes('high demand') || errorDetail.includes('Spikes in demand')) {
+          reasonLabel = 'يشهد ضغطاً مؤقتاً عالياً (High Demand)';
+        } else if (response.status === 429 || errorDetail.includes('RESOURCE_EXHAUSTED')) {
+          reasonLabel = 'تجاوز حد الطلبات اللحظي';
+        } else if (response.status === 404 || errorDetail.includes('not found')) {
+          reasonLabel = 'غير متاح لحسابك';
+        }
+
+        console.warn(`[AI Studio] Model ${currentModel} failed (${response.status}: ${errorDetail}). Auto-switching to ${nextModel}...`);
+
+        onProgress({
+          step: 2,
+          totalSteps: 5,
+          message: `نموذج (${currentModel}) ${reasonLabel}. جاري التحويل التلقائي والفوري إلى (${nextModel})...`
+        });
+
+        // 350ms delay before connecting to next fallback model
+        await new Promise(r => setTimeout(r, 350));
         continue;
+      }
+
+      // If all models in the fallback chain were exhausted, display friendly Arabic messages:
+      if (errorDetail.includes('high demand') || errorDetail.includes('Spikes in demand') || response.status === 503) {
+        throw new Error(`خوادم Google Gemini تشهد ضغطاً مؤقتاً كبيراً على النماذج حالياً (High Demand). يرجى الانتظار 10 ثوانٍ وإعادة المحاولة، أو اختيار نموذج Gemini 3.5 Flash-Lite من الخطوة الأولى.`);
+      }
+
+      if (response.status === 429 || errorDetail.includes('RESOURCE_EXHAUSTED')) {
+        throw new Error('تم تجاوز حد الطلبات المسموح (Rate Limit) لمفتاحك حالياً. يرجى الانتظار 30 ثانية ثم المحاولة مجدداً.');
       }
 
       throw new Error(`خطأ من خادم الذكاء الاصطناعي (${currentModel}): ${errorDetail}`);
@@ -349,6 +366,9 @@ export async function generatePresentationWithAI(params) {
       textOutput = result?.candidates?.[0]?.content?.parts?.[0]?.text;
       if (textOutput) {
         break; // Successfully got output!
+      } else {
+        const finishReason = result?.candidates?.[0]?.finishReason;
+        lastError = finishReason ? `سبب الإيقاف: ${finishReason}` : 'استجابة فارغة من النموذج';
       }
     } catch (e) {
       lastError = e.message;
@@ -379,6 +399,13 @@ export async function generatePresentationWithAI(params) {
       cleanJson = cleanJson.substring(0, cleanJson.length - 3);
     }
     cleanJson = cleanJson.trim();
+
+    // Extract outermost JSON object if model returned any surrounding text
+    const startObj = cleanJson.indexOf('{');
+    const endObj = cleanJson.lastIndexOf('}');
+    if (startObj !== -1 && endObj !== -1 && endObj > startObj) {
+      cleanJson = cleanJson.substring(startObj, endObj + 1);
+    }
 
     parsedDraft = JSON.parse(cleanJson);
   } catch (parseError) {
