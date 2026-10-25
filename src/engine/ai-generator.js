@@ -174,7 +174,6 @@ Return JSON with this EXACT structure (strictly ${mabhathCount} sections, each s
         }
       ]
     }
-    // You MUST generate strictly all ${mabhathCount} sections (mabhath-1 through mabhath-${mabhathCount}), each containing exactly ${matlabCount} subsections (sec-X-Y) with varied communicative layouts ("definition"|"comparison"|"statistics"|"process_steps"|"pros_cons"|"table")
   ],
   "conclusion": "تخلص الدراسة إلى أن النموذج المقترح يمثل حلاً منهجياً متكاملاً يعزز الكفاءة ويحقق التكامل المؤسسي المستدام.",
   "conclusionPoints": [
@@ -209,7 +208,7 @@ export async function generatePresentationWithAI(params) {
     course = '',
     instructor = '',
     language = 'ar',
-    model = 'gemini-2.5-flash',
+    model = 'gemini-3.8-flash',
     onProgress = () => {}
   } = params;
 
@@ -250,13 +249,14 @@ export async function generatePresentationWithAI(params) {
     matlabCount
   });
 
-  const preferredModel = (model || 'gemini-2.5-flash').trim();
-  // Build fallback model chain, prioritizing fast, official Gemini models
+  const preferredModel = (model || 'gemini-3.8-flash').trim();
+  // Build fallback model chain, prioritizing fast, official Google Gemini models
   const modelsToTry = [
     preferredModel,
+    'gemini-3.8-flash',
+    'gemini-3.5-flash-lite',
     'gemini-2.5-flash',
-    'gemini-1.5-flash',
-    'gemini-2.5-pro'
+    'gemini-1.5-flash'
   ].filter((m, i, arr) => m && arr.indexOf(m) === i);
 
   let response = null;
@@ -276,18 +276,11 @@ export async function generatePresentationWithAI(params) {
 
     const url = `${GEMINI_API_ENDPOINT}/${currentModel}:generateContent?key=${apiKey.trim()}`;
 
-    const isGemini25 = currentModel.includes('2.5');
     const generationConfig = {
       responseMimeType: 'application/json',
-      temperature: 0.3,
+      temperature: 0.35,
       topP: 0.95
     };
-    // Disable thinking budget on 2.5-flash to eliminate 15-20s waiting latency
-    if (isGemini25) {
-      generationConfig.thinkingConfig = {
-        thinkingBudget: 0
-      };
-    }
 
     const requestBody = {
       contents: [
@@ -317,31 +310,9 @@ export async function generatePresentationWithAI(params) {
       let errorDetail = '';
       try {
         const errJson = await response.json();
-        errorDetail = errJson?.error?.message || response.statusText;
+        errorDetail = errJson?.error?.message || errJson?.error?.status || `رمز الاستجابة: ${response.status}`;
       } catch (e) {
-        errorDetail = response.statusText;
-      }
-
-      // If thinkingConfig caused an unexpected 400 error, retry once immediately without thinkingConfig
-      if (response.status === 400 && generationConfig.thinkingConfig && (errorDetail.includes('thinkingConfig') || errorDetail.includes('thinkingBudget'))) {
-        delete generationConfig.thinkingConfig;
-        try {
-          response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody)
-          });
-        } catch (_) {}
-      }
-    }
-
-    if (!response.ok) {
-      let errorDetail = '';
-      try {
-        const errJson = await response.json();
-        errorDetail = errJson?.error?.message || response.statusText;
-      } catch (e) {
-        errorDetail = response.statusText;
+        errorDetail = response.statusText || `رمز الاستجابة: ${response.status}`;
       }
 
       // Check for invalid API key
@@ -354,14 +325,17 @@ export async function generatePresentationWithAI(params) {
         throw new Error('تم تجاوز حد الطلبات المسموح (Rate Limit). يرجى الانتظار بضع ثوانٍ ثم المحاولة مجدداً.');
       }
 
-      // Check if model is deprecated, not found, or unavailable -> fallback to next model
+      // If model is unavailable (404), deprecated (400/404), or restricted (403), fallback to next model in list
       const isModelUnavailable = response.status === 404 ||
+        response.status === 403 ||
+        response.status === 400 ||
         errorDetail.includes('no longer available') ||
         errorDetail.includes('not found') ||
+        errorDetail.includes('is not supported') ||
         errorDetail.includes('is no longer supported');
 
       if (isModelUnavailable && mIdx < modelsToTry.length - 1) {
-        console.warn(`Model ${currentModel} unavailable (${errorDetail}), falling back to ${modelsToTry[mIdx + 1]}...`);
+        console.warn(`Model ${currentModel} failed (${errorDetail}), falling back to ${modelsToTry[mIdx + 1]}...`);
         lastError = errorDetail;
         continue;
       }
