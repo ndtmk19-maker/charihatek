@@ -24,6 +24,11 @@ import {
  * @returns {Array} Array of final slide descriptors
  */
 export function splitDraftIntoSlides(draft, density = DENSITY_MODES.STANDARD) {
+  // If draft is completely empty or lacks both title and sections, return 0 slides
+  if (!draft || (!draft.title && (!Array.isArray(draft.sections) || draft.sections.length === 0))) {
+    return [];
+  }
+
   const budget = CAPACITY_BUDGETS[density] || CAPACITY_BUDGETS[DENSITY_MODES.STANDARD];
   const slides = [];
   const lang = draft.language || 'ar';

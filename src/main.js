@@ -436,10 +436,21 @@ function updatePreviewFilmstrip() {
   const counterEl = document.getElementById('thumbs-counter');
   if (!container) return;
 
-  const slides = appState.generatedSlides;
+  const slides = appState.generatedSlides || [];
   if (counterEl) counterEl.textContent = `${slides.length} شريحة`;
 
-  const theme = THEME_VARIANTS[appState.draft.themeVariant] || THEME_VARIANTS['mgmt-navy-gold'];
+  if (slides.length === 0) {
+    container.innerHTML = `
+      <div class="empty-filmstrip-notice" style="padding: 2.5rem 1rem; text-align: center; color: var(--app-text-muted); font-size: 0.85rem; line-height: 1.6;">
+        <span style="font-size: 2rem; display: block; margin-bottom: 0.6rem; opacity: 0.6;">📭</span>
+        لا توجد شرائح متولدة حالياً (0).<br>
+        استخدم استوديو الذكاء الاصطناعي لتوليد عرضك الأكاديمي.
+      </div>
+    `;
+    return;
+  }
+
+  const theme = THEME_VARIANTS[appState.draft.themeVariant] || THEME_VARIANTS['econ-trend'];
 
   container.innerHTML = slides.map((s, idx) => {
     const isActive = idx === appState.activeSlideIndex;
@@ -470,7 +481,12 @@ function updateThumbnailsActiveState() {
 
   const counterDisplay = document.getElementById('viewer-counter-display');
   if (counterDisplay) {
-    counterDisplay.textContent = `${appState.activeSlideIndex + 1} / ${appState.generatedSlides.length || 1}`;
+    const total = appState.generatedSlides ? appState.generatedSlides.length : 0;
+    if (total === 0) {
+      counterDisplay.textContent = '0 / 0';
+    } else {
+      counterDisplay.textContent = `${appState.activeSlideIndex + 1} / ${total}`;
+    }
   }
 }
 
@@ -481,20 +497,41 @@ function renderActiveSlide() {
   const target = document.getElementById('active-slide-render-target');
   if (!target) return;
 
-  const currentSlide = appState.generatedSlides[appState.activeSlideIndex];
-  if (!currentSlide) {
-    target.innerHTML = `<div style="color: #ffffff; text-align: center; padding: 3rem;">لا توجد شرائح حالياً. استخدم استوديو الذكاء الاصطناعي لتوليد العرض.</div>`;
+  const slides = appState.generatedSlides || [];
+  const currentSlide = slides[appState.activeSlideIndex];
+  if (!currentSlide || slides.length === 0) {
+    target.innerHTML = `
+      <div class="empty-slide-canvas" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; min-height: 420px; text-align: center; color: var(--app-text-muted); padding: 2.5rem 1.5rem; background: radial-gradient(circle at 50% 50%, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.95) 100%); border-radius: 12px; border: 1px dashed rgba(255, 255, 255, 0.15);">
+        <div style="width: 70px; height: 70px; border-radius: 50%; background: rgba(59, 130, 246, 0.12); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; margin-bottom: 1.25rem; border: 1px solid rgba(59, 130, 246, 0.25);">✨</div>
+        <h3 style="font-size: 1.35rem; font-weight: 700; color: #ffffff; margin-bottom: 0.6rem;">جاهز لتوليد عرضك التقديمي الأكاديمي</h3>
+        <p style="font-size: 0.95rem; color: #94a3b8; max-width: 480px; line-height: 1.6; margin-bottom: 1.5rem;">
+          لا توجد شرائح حالياً (0 شريحة). أدخل موضوع بحثك الجامعي في حقل التوليد الذكي، وستقوم منصة <strong>شريحتك</strong> ببناء وتصميم كامل الشرائح من الصفر.
+        </p>
+        <button type="button" class="btn btn-primary" id="btn-empty-state-start" style="padding: 0.75rem 1.75rem; font-size: 0.95rem; border-radius: 9999px; font-weight: 700; gap: 0.5rem;">
+          <span>🚀 الانتقال إلى الاستوديو وبدء التوليد</span>
+        </button>
+      </div>
+    `;
+    const startBtn = document.getElementById('btn-empty-state-start');
+    startBtn?.addEventListener('click', () => {
+      const studioTab = document.querySelector('[data-view-target="editor"]');
+      studioTab?.click();
+      setTimeout(() => {
+        const topicEl = document.getElementById('ai-topic-prompt');
+        topicEl?.focus();
+      }, 150);
+    });
     return;
   }
 
-  const theme = THEME_VARIANTS[appState.draft.themeVariant] || THEME_VARIANTS['mgmt-navy-gold'];
+  const theme = THEME_VARIANTS[appState.draft.themeVariant] || THEME_VARIANTS['econ-trend'];
   const html = renderSlideToHtml(currentSlide, appState.activeDomain, theme, appState.density);
   target.innerHTML = html;
 }
 
 function updateHeaderCounters() {
   const tabCount = document.getElementById('tab-slide-count');
-  if (tabCount) tabCount.textContent = appState.generatedSlides.length.toString();
+  if (tabCount) tabCount.textContent = (appState.generatedSlides ? appState.generatedSlides.length : 0).toString();
 }
 
 /**

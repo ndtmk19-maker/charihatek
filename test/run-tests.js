@@ -18,6 +18,7 @@ import { getIconDataUri } from '../src/design/interface-icons.js';
 import { generatePptxDeck } from '../src/export/generate-pptx.js';
 import { THEME_VARIANTS } from '../src/design/domain-themes.js';
 import { exportPdfDeck } from '../src/export/export-pdf.js';
+import { createEmptyDraft } from '../src/storage/draft-storage.js';
 
 let passed = 0;
 let failed = 0;
@@ -275,6 +276,19 @@ assert(indexHtmlContent.includes('شريحتك'), 'Brand name "شريحتك" is 
 assert(!indexHtmlContent.includes('brand-badge-tag'), 'AI badge is removed from header');
 assert(indexHtmlContent.includes('src="/logo.png"'), 'Brand logo image is referenced in header');
 assert(indexHtmlContent.includes('href="/favicon.png"'), 'Favicon references favicon.png');
+
+console.log('\n=== 10. Testing Initial Zero-Slides State for New Visitors ===');
+const emptyDraft = createEmptyDraft();
+assert(emptyDraft.title === '', 'Empty draft title is empty string');
+assert(Array.isArray(emptyDraft.sections) && emptyDraft.sections.length === 0, 'Empty draft has 0 sections');
+
+const emptySlides = splitDraftIntoSlides(emptyDraft, DENSITY_MODES.STANDARD);
+assert(Array.isArray(emptySlides) && emptySlides.length === 0, 'Empty draft yields exactly 0 slides on fresh load');
+
+assert(indexHtmlContent.includes('id="viewer-counter-display">0 / 0<'), 'Viewer counter defaults to 0 / 0 in index.html');
+assert(indexHtmlContent.includes('id="tab-slide-count">0<'), 'Navigation tab counter defaults to 0 in index.html');
+assert(indexHtmlContent.includes('id="thumbs-counter">0 شريحة<'), 'Thumbnails counter defaults to 0 شريحة in index.html');
+assert(indexHtmlContent.includes('id="sidebar-total-slides" style="color: var(--theme-primary); font-size: 1.05rem;">0 شريحة<'), 'Sidebar counter defaults to 0 شريحة in index.html');
 
 console.log(`\n========================================`);
 console.log(`Summary: ${passed} Passed, ${failed} Failed`);

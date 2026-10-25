@@ -54,135 +54,38 @@ export function clearApiKey() {
 }
 
 /**
- * Creates a rich, complete academic research draft showcase template
- * Packed with charts, diagrams, comparisons, processes, stickers, and seals out-of-the-box.
+ * Creates a clean, empty draft for new visitors (0 slides until user generates)
  */
 export function createEmptyDraft() {
   return {
     id: `draft-${Date.now()}`,
-    title: 'أثر التحول الرقمي والذكاء الاصطناعي في تحسين كفاءة الأداء المؤسسي والحوكمة',
-    author: 'أحمد بن علي الزهراني',
-    institution: 'جامعة الملك سعود',
-    faculty: 'كلية إدارة الأعمال ونظم المعلومات',
-    course: 'الإدارة الاستراتيجية والتحول الرقمي',
-    instructor: 'أ.د. عبد الرحمن المنصور',
-    date: '1446هـ / 2024م',
+    title: '',
+    author: '',
+    institution: '',
+    faculty: '',
+    course: '',
+    instructor: '',
+    date: '',
     language: 'ar',
-    domain: 'economics',
+    domain: 'general',
     density: 'standard', // compact | standard | detailed
     themeVariant: 'econ-trend', // 'مؤشرات التداول (بترولي وعنبر دافئ)' كـ default
-    introduction: 'يشهد العصر الراهن ثورة تكنولوجية متسارعة أعادت صياغة نماذج العمل الإداري، حيث أضحى التحول الرقمي والأنظمة الذكية ركيزة جوهرية لتعزيز الإنتاجية وتكريس الشفافية وضمان الحوكمة المؤسسية الرشيدة.',
-    sections: [
-      {
-        id: `section-${Date.now()}-1`,
-        title: 'المبحث الأول: الإطار المفاهيمي للتحول الرقمي والحوكمة',
-        definitionTerm: 'التحول الرقمي المؤسسي',
-        layoutType: 'definition',
-        paragraphs: [
-          'يُعرّف التحول الرقمي المؤسسي بأنه عملية استراتيجية شاملة تهدف إلى إعادة هندسة الإجراءات والخدمات والسياسات عبر توظيف الحلول البرمجية والذكاء الاصطناعي لتحقيق قيمة مستدامة تلبي تطلعات المستفيدين والشركاء.'
-        ],
-        bullets: [
-          'مواءمة النماذج التقنية الحديثة مع الرؤية الاستراتيجية الكبرى للمنظمة',
-          'إعادة هيكلة العمليات التشغيلية وتفكيك الإجراءات الروتينية المعقدة',
-          'الامتثال الصارم لأطر الحوكمة المؤسسية ومعايير النزاهة والشفافية'
-        ],
-        keyPoint: 'التحول الرقمي يمثل تحولاً ثقافياً وتنظيمياً عميقاً يتجاوز مجرد اقتناء الحواسيب والبرمجيات.'
-      },
-      {
-        id: `section-${Date.now()}-2`,
-        title: 'المبحث الثاني: مؤشرات الأداء والنمو التشغيلي بعد الأتمتة',
-        layoutType: 'statistics',
-        paragraphs: [
-          'توضح المؤشرات الرقمية المسجلة خلال فترة التطبيق الميداني تحسناً كمياً ونوعياً كبيراً في دقة المعالجة، مع تقليص ملموس في زمن الاستجابة والتكاليف التشغيلية المباشرة.'
-        ],
-        statistics: [
-          { label: 'كفاءة معالجة المعاملات', value: '45', unit: '%' },
-          { label: 'نسبة رضا المستفيدين', value: '88', unit: '%' },
-          { label: 'تقليص التكاليف التشغيلية', value: '32', unit: '%' },
-          { label: 'سرعة اتخاذ القرارات', value: '76', unit: '%' }
-        ],
-        chartType: 'bar',
-        bullets: []
-      },
-      {
-        id: `section-${Date.now()}-3`,
-        title: 'المبحث الثالث: مسار التطبيق ومراحل التحول المتسلسلة',
-        layoutType: 'process_steps',
-        paragraphs: [
-          'يتم تنفيذ خارطة طريق التحول الرقمي وفق منهجية مرحلية مرنة تتكون من أربع محطات متتابعة تضمن استيعاب التغيير وإدارة المخاطر التقنية.'
-        ],
-        numbered: [
-          'التشخيص الميداني الشامل وحصر الاحتياجات وتحديد الفجوات التقنية الحالية',
-          'إعادة هندسة العمليات وتطوير البنية السحابية ومنصات البيانات المشتركة',
-          'تدريب وتأهيل الكوادر البشرية على المنظومات البرمجية وتكريس ثقافة الابتكار',
-          'التقييم المستمر وقياس مؤشرات الأداء ومراقبة جودة المخرجات وتطويرها'
-        ],
-        bullets: []
-      },
-      {
-        id: `section-${Date.now()}-4`,
-        title: 'المبحث الرابع: دراسة مقارنة بين الإدارة التقليدية والإدارة الرقمية',
-        layoutType: 'comparison',
-        paragraphs: [
-          'تُظهر المقارنة المفاهيمية والميدانية الفروق الجوهرية بين الأنماط الإدارية الكلاسيكية والأنظمة الرقمية المتقدمة في جوانب السرعة والموثوقية والرقابة.'
-        ],
-        comparison: {
-          colA: {
-            title: 'الإدارة الورقية التقليدية',
-            items: [
-              'بطء ملحوظ في دورة التوقيعات وسريان المعاملات الورقية',
-              'صعوبة تتبع المعاملات وارتفاع مخاطر فقدان البيانات وتلفها',
-              'تكاليف أرشفة وتخزين مرتفعة وغياب الرقابة اللحظية على الأداء'
-            ]
-          },
-          colB: {
-            title: 'الإدارة الرقمية الذكية',
-            items: [
-              'معالجة فورية وتتبع رقمي دقيق لكافة مسارات المعاملات',
-              'أرشفة سحابية مشفرة مع إمكانية الوصول الآمن على مدار الساعة',
-              'تقارير أداء لحظية ودعم متكامل لصناع القرار عبر لوحات القيادة'
-            ]
-          }
-        },
-        bullets: []
-      },
-      {
-        id: `section-${Date.now()}-5`,
-        title: 'المبحث الخامس: موازنة المكتسبات والفرص وتحديات الأمن السيبراني',
-        layoutType: 'pros_cons',
-        paragraphs: [
-          'على الرغم من الآفاق الواعدة للتحول الرقمي، إلا أنه يفرض تحديات أمنية وتنظيمية تستوجب تدابير وقائية استباقية لتحصين الأصول الرقمية.'
-        ],
-        bullets: [
-          'زيادة الإنتاجية الكلية وتقليص الهدر الزمني والمادي',
-          'توفير تدفقات بيانات دقيقة تدعم القرارات التنبؤية الذكية',
-          'تحسين تجربة المستفيدين وتقديم خدمات متكاملة وسلسة',
-          'مخاطر الهجمات السيبرانية وضرورة حماية الخصوصية والمعلومات',
-          'مقاومة التغيير والحاجة إلى برامج تدريب وتوعية مكثفة',
-          'التكاليف الرأسمالية الأولية للبنية التحتية والبرمجيات المتخصصة'
-        ]
-      }
-    ],
-    conclusion: 'تخلص هذه الدراسة الأكاديمية إلى أن التحول الرقمي وحوكمة النظم لم يعد خياراً ثانوياً للمؤسسات، بل هو الركيزة الأساسية لمرونتها وقدرتها على تحقيق التميز التنافسي ومواكبة متطلبات الاقتصاد المعرفي المعاصر.',
-    conclusionPoints: [
-      'اعتماد استراتيجية وطنية متكاملة للحوكمة الرقمية المؤسسية',
-      'الاستثمار طويل الأجل في تنمية المهارات الرقمية لرأس المال البشري',
-      'بناء منظومة أمن سيبراني استباقية لحماية البيانات وضمان استمرارية الأعمال'
-    ],
-    references: [
-      'الزهراني، أحمد (2023). استراتيجيات التحول الرقمي والحوكمة المؤسسية المعاصرة، دار الفكر العربي، الرياض.',
-      'المنصور، عبد الرحمن (2022). الإدارة الذكية وإعادة هندسة العمليات، دار النشر الجامعي، القاهرة.',
-      'Davenport, T. H. (2020). The AI Advantage: How to Put the Artificial Intelligence Revolution to Work, MIT Press.',
-      'Westerman, G., et al. (2021). Leading Digital: Turning Technology into Business Transformation, Harvard Business Review Press.'
-    ]
+    introduction: '',
+    sections: [],
+    conclusion: '',
+    conclusionPoints: [],
+    references: []
   };
 }
 
 /**
- * Saves current draft to LocalStorage
+ * Saves current draft to LocalStorage (only if it contains actual content)
  */
 export function saveDraftToStorage(draft) {
   try {
+    if (!draft || (!draft.title && (!Array.isArray(draft.sections) || draft.sections.length === 0))) {
+      return false;
+    }
     localStorage.setItem(STORAGE_KEY_DRAFT, JSON.stringify(draft));
     return true;
   } catch (err) {
@@ -193,12 +96,26 @@ export function saveDraftToStorage(draft) {
 
 /**
  * Loads current draft from LocalStorage
+ * Automatically purges legacy dummy showcase research so new/returning visitors start at 0 slides
  */
 export function loadDraftFromStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY_DRAFT);
     if (raw) {
-      return JSON.parse(raw);
+      const data = JSON.parse(raw);
+      // Clean up legacy dummy research presentation if present in storage
+      if (data && (
+        data.title === 'أثر التحول الرقمي والذكاء الاصطناعي في تحسين كفاءة الأداء المؤسسي والحوكمة' ||
+        data.author === 'أحمد بن علي الزهراني'
+      )) {
+        localStorage.removeItem(STORAGE_KEY_DRAFT);
+        return null;
+      }
+      // If draft is completely empty, treat as null
+      if (!data || (!data.title && (!Array.isArray(data.sections) || data.sections.length === 0))) {
+        return null;
+      }
+      return data;
     }
   } catch (err) {
     console.warn('LocalStorage load failed:', err);

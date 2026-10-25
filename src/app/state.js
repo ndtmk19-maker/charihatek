@@ -3,7 +3,7 @@
  * Connects Editor, Domain Classification, Slide Splitting, Theme, and Preview.
  */
 
-import { createEmptyDraft, loadDraftFromStorage, saveDraftToStorage } from '../storage/draft-storage.js';
+import { createEmptyDraft, loadDraftFromStorage, saveDraftToStorage, clearDraftFromStorage } from '../storage/draft-storage.js';
 import { classifyDomain } from '../classifier/domain-classifier.js';
 import { splitDraftIntoSlides } from '../engine/slide-splitter.js';
 import { setActiveTheme, getActiveTheme } from '../design/theme-manager.js';
@@ -17,7 +17,7 @@ class AppStateManager {
       this.draft.themeVariant = 'econ-trend';
     }
     this.domainResult = null;
-    this.activeDomain = this.draft.domain && this.draft.domain !== 'auto' ? this.draft.domain : 'economics';
+    this.activeDomain = this.draft.domain && this.draft.domain !== 'auto' ? this.draft.domain : 'general';
     this.density = this.draft.density || 'standard';
     this.generatedSlides = [];
     this.activeSlideIndex = 0;
@@ -50,7 +50,7 @@ class AppStateManager {
     if (this.draft.domain && this.draft.domain !== 'auto') {
       this.activeDomain = this.draft.domain;
     } else {
-      this.activeDomain = this.domainResult?.selectedDomain || 'economics';
+      this.activeDomain = this.domainResult?.selectedDomain || 'general';
     }
 
     // 4. Resolve theme
@@ -65,7 +65,9 @@ class AppStateManager {
     // 5. Generate slides
     this.generatedSlides = splitDraftIntoSlides(this.draft, this.density);
 
-    if (this.activeSlideIndex >= this.generatedSlides.length) {
+    if (this.generatedSlides.length === 0) {
+      this.activeSlideIndex = 0;
+    } else if (this.activeSlideIndex >= this.generatedSlides.length) {
       this.activeSlideIndex = Math.max(0, this.generatedSlides.length - 1);
     }
 
@@ -145,6 +147,7 @@ class AppStateManager {
 
   resetDraft() {
     this.draft = createEmptyDraft();
+    clearDraftFromStorage();
     this.recomputeAll();
     this.notify('draft-reset');
   }
