@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>شريحتك | منصة توليد العروض الأكاديمية بالذكاء الاصطناعي</title>
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="/src/styles/base.css" />
+  <link rel="stylesheet" href="/src/styles/editor.css" />
+  <link rel="stylesheet" href="/src/styles/preview.css" />
+</head>
+<body>
+
+  <!-- Application Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-section">
+        <div class="brand-logo-wrapper">
+          <img src="/logo.png" alt="شعار منصة شريحتك" class="brand-logo-img" />
+        </div>
+        <div class="brand-title-group">
+          <h1>شريحتك</h1>
+          <p class="brand-subtitle">المنصة الأكاديمية الذكية لتوليد العروض والبحوث المنهجية</p>
+        </div>
+      </div>
+
+      <!-- Navigation View Tabs -->
+      <nav class="nav-tabs-group" role="tablist">
+        <button type="button" class="nav-tab-btn nav-tab-active" data-view-target="editor">
+          <span>استوديو الذكاء الاصطناعي</span>
+        </button>
+        <button type="button" class="nav-tab-btn" data-view-target="preview">
+          <span>معاينة الشرائح (<span id="tab-slide-count">0</span>)</span>
+        </button>
+        <button type="button" class="nav-tab-btn" data-view-target="settings">
+          <span>الهوية والأنماط</span>
+        </button>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions-group">
+        <div id="header-api-status" class="api-status-badge missing">
+          <span class="status-dot">●</span>
+          <span id="header-api-text">مفتاح API غير مدخل</span>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-global-export-pptx">
+          <span>تصدير PowerPoint (.pptx)</span>
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-global-export-pdf" title="تصدير جميع الشرائح كملف PDF عالي الدقة">
+          <span>📄 تصدير PDF</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-main">
+
+    <!-- ================= VIEW 1: AI PRESENTATION STUDIO (PPT-MASTER) ================= -->
+    <section id="view-editor" class="app-view-panel">
+      
+      <!-- Editor Main Grid -->
+      <div class="editor-layout-grid">
+        
+        <!-- Main Column: AI Generation Studio -->
+        <!-- Main Column: AI Generation Studio (3-Step Guided Wizard) -->
+        <div class="editor-main-panel">
+          
+          <!-- Stepper Navigation Header -->
+          <nav class="studio-stepper-header" id="studio-stepper-header" aria-label="مراحل إعداد وتوليد العرض">
+            <div class="stepper-step active" id="step-nav-1" data-step="1">
+              <div class="step-circle" id="step-circle-1">1</div>
+              <div class="step-info">
+                <span class="step-title">الخطوة الأولى</span>
+                <span class="step-subtitle">🔑 مفتاح الـ API والنموذج</span>
+              </div>
+            </div>
+            <div class="stepper-divider" id="step-divider-1"></div>
+            <div class="stepper-step" id="step-nav-2" data-step="2">
+              <div class="step-circle" id="step-circle-2">2</div>
+              <div class="step-info">
+                <span class="step-title">الخطوة الثانية</span>
+                <span class="step-subtitle">🎓 البيانات والتخصص الأكاديمي</span>
+              </div>
+            </div>
+            <div class="stepper-divider" id="step-divider-2"></div>
+            <div class="stepper-step" id="step-nav-3" data-step="3">
+              <div class="step-circle" id="step-circle-3">3</div>
+              <div class="step-info">
+                <span class="step-title">الخطوة الثالثة</span>
+                <span class="step-subtitle">📑 خطة البحث والتوليد</span>
+              </div>
+            </div>
+          </nav>
+
+          <!-- ================= STEP 1: API KEY & MODEL CONFIGURATION ================= -->
+          <div class="studio-step-panel" id="step-panel-1">
+            <div class="editor-card">
+              <div class="editor-card-header">
+                <h3 class="editor-card-title">
+                  <span>🔑</span>
+                  <span>الخطوة الأولى: إعداد مفتاح الذكاء الاصطناعي (Google Gemini API)</span>
+                </h3>
+                <div id="api-key-status-badge" class="api-status-badge missing">
+                  <span class="status-dot">●</span>
+                  <span id="api-status-label">المفتاح غير محفوظ</span>
+                </div>
+              </div>
+
+              <p class="step-card-desc">
+                أدخل مفتاح Google Gemini API الخاص بك لتشغيل محرك توليد العروض الأكاديمية بالذكاء الاصطناعي.
+                يتم حفظ المفتاح بأمان تام داخل متصفحك (LocalStorage) دون وسيط خارجي.
+              </p>
+
+              <div class="api-key-container">
+                <div class="api-key-input-wrapper">
+                  <input 
+                    type="password" 
+                    id="input-api-key" 
+                    class="form-input" 
+                    placeholder="الصق مفتاح Google Gemini API هنا (يبدأ بـ AIzaSy...)" 
+                    autocomplete="off"
+                  />
+                  <button type="button" class="btn-toggle-eye" id="btn-toggle-key-visibility" title="إظهار / إخفاء المفتاح">
+                    👁️
+                  </button>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" id="btn-save-key">
+                  حفظ المفتاح
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-key" title="حذف المفتاح المخزن">
+                  مسح
+                </button>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; flex-wrap: wrap; gap: 0.75rem; font-size: 0.84rem;">
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <label for="select-ai-model" style="font-weight: 700; color: var(--app-text);">نموذج التوليد:</label>
+                  <select id="select-ai-model" class="form-select" style="padding: 0.35rem 0.65rem; font-size: 0.84rem; width: auto;">
+                    <option value="gemini-3.8-flash" selected>Gemini 3.8 Flash (النموذج الرسمي الأحدث - فائق السرعة والدقة)</option>
+                    <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                    <option value="gemini-3.8-pro">Gemini 3.8 Pro (أعلى عمق استدلالي للموضوعات المعقدة)</option>
+                  </select>
+                </div>
+                <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: var(--theme-primary); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 0.25rem;">
+                  <span>احصل على مفتاح API مجاني فوري من Google AI Studio</span>
+                  <span>↗</span>
+                </a>
+              </div>
+
+              <div style="background: rgba(255, 255, 255, 0.03); border: 1px dashed var(--app-border); border-radius: var(--radius-md); padding: 0.85rem 1rem; margin-top: 1.25rem; font-size: 0.82rem; color: #94a3b8; line-height: 1.6;">
+                💡 <strong>إرشاد سريع:</strong> لا تملك مفتاحاً؟ افتح الرابط المجاني أعلاه، سجّل الدخول بحساب Google، واضغط <strong>Create API Key</strong> ثم الصقه هنا واضغط <strong>الانتقال للخطوة التالية</strong>.
+              </div>
+
+              <!-- Step 1 Actions Footer -->
+              <div class="step-actions-footer">
+                <span class="step-badge-counter">الخطوة 1 من 3</span>
+                <button type="button" class="btn btn-primary" id="btn-step1-next" style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; padding: 0.65rem 1.5rem;">
+                  <span>الانتقال إلى البيانات والتخصص</span>
+                  <span>➔</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ================= STEP 2: ACADEMIC PROFILE, COURSE & AUTHORS ================= -->
+          <div class="studio-step-panel hidden" id="step-panel-2">
+            <div class="editor-card">
+              <div class="editor-card-header">
+                <h3 class="editor-card-title">
+                  <span>🎓</span>
+                  <span>الخطوة الثانية: التخصص وبيانات الطلبة والموديل والجامعة</span>
+                </h3>
+                <span class="step-card-badge">تظهر على شريحة الغلاف والتوثيق الأكاديمي</span>
+              </div>
+
+              <p class="step-card-desc">
+                حدد التخصص الأكاديمي، أسماء الطلبة الباحثين، اسم الموديل/المقياس، واسم الأستاذ المشرف والجامعة لتخصيص العرض وإبراز الهوية الأكاديمية الرسمية.
+              </p>
+
+              <!-- Specialization and Module / Course Grid -->
+              <div class="grid-2col" style="margin-bottom: 1rem;">
+                <div class="form-group">
+                  <label class="form-label" for="ai-academic-domain">
+                    📚 التخصص والمجال الأكاديمي: <span class="text-danger">*</span>
+                  </label>
+                  <select id="ai-academic-domain" class="form-select">
+                    <option value="auto" selected>كشف تلقائي حسب الموضوع (موصى به)</option>
+                    <option value="technology">التكنولوجيا وهندسة البرمجيات والذكاء الاصطناعي</option>
+                    <option value="management">إدارة الأعمال والحوكمة وتسيير المؤسسات</option>
+                    <option value="economics">العلوم الاقتصادية والمالية والأسواق</option>
+                    <option value="medicine">العلوم الطبية والصحية والصيدلانية</option>
+                    <option value="accounting">المحاسبة والتدقيق والرقابة المالية</option>
+                    <option value="general">العلوم الإنسانية والاجتماعية والحقوق والعلوم السياسية</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="ai-course">
+                    📖 اسم الموديل / المقياس الأكاديمي (Course / Module):
+                  </label>
+                  <input 
+                    type="text" 
+                    id="ai-course" 
+                    class="form-input" 
+                    placeholder="مثال: مقياس إدارة التغيير / تدقيق محاسبي / بحوث العمليات / أمن نظم المعلومات..." 
+                  />
+                </div>
+              </div>
+
+              <!-- Student and Supervisor Grid -->
+              <div class="grid-2col" style="margin-bottom: 1rem;">
+                <div class="form-group">
+                  <label class="form-label" for="ai-author">
+                    👥 أسماء الطلبة / فريق البحث:
+                  </label>
+                  <input 
+                    type="text" 
+                    id="ai-author" 
+                    class="form-input" 
+                    placeholder="مثال: محمد بن علي، فاطمة الزهراء، يوسف أحمد..." 
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="ai-instructor">
+                    👨‍🏫 اسم الأستاذ / المشرف الأكاديمي:
+                  </label>
+                  <input 
+                    type="text" 
+                    id="ai-instructor" 
+                    class="form-input" 
+                    placeholder="مثال: د. عبد الرحمن القاسمي / أ.د. بلقاسم عمر..." 
+                  />
+                </div>
+              </div>
+
+              <!-- University and Faculty Grid -->
+              <div class="grid-2col" style="margin-bottom: 1rem;">
+                <div class="form-group">
+                  <label class="form-label" for="ai-institution">
+                    🏛️ اسم الجامعة أو المؤسسة:
+                  </label>
+                  <input 
+                    type="text" 
+                    id="ai-institution" 
+                    class="form-input" 
+                    placeholder="مثال: جامعة الجزائر 1 / جامعة الملك سعود / جامعة القاهرة..." 
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="ai-faculty">
+                    🏢 الكلية أو القسم الأكاديمي:
+                  </label>
+                  <input 
+                    type="text" 
+                    id="ai-faculty" 
+                    class="form-input" 
+                    placeholder="مثال: كلية العلوم الاقتصادية والتجارية وعلوم التسيير..." 
+                  />
+                </div>
+              </div>
+
+              <!-- Degree Level, Language, and Theme Styling Grid -->
+              <div class="grid-3col" style="margin-bottom: 1.25rem;">
+                <div class="form-group">
+                  <label class="form-label" for="ai-degree-level">🎓 المستوى والعمق الأكاديمي:</label>
+                  <select id="ai-degree-level" class="form-select">
+                    <option value="undergraduate">ليسانس / بكالوريوس (تحليل تطبيقي متوازن)</option>
+                    <option value="master" selected>ماجستير ودراسات عليا (إشكالية، فرضيات، وتحليل متقدم)</option>
+                    <option value="doctorate">دكتوراه وأطروحة متقدمة (نقد معرفي وتأصيل رصين)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="ai-language">🌐 لغة العرض الأكاديمي:</label>
+                  <select id="ai-language" class="form-select">
+                    <option value="ar" selected>العربية (RTL - لغة أكاديمية رصينة)</option>
+                    <option value="en">English (LTR - Academic)</option>
+                    <option value="fr">Français (LTR - Académique)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="ai-theme-variant">🎨 النمط والهوية البصرية:</label>
+                  <select id="ai-theme-variant" class="form-select">
+                    <option value="econ-trend" selected>مؤشرات التداول (بترولي وعنبر دافئ) - الافتراضي</option>
+                    <option value="auto">تلقائي متناسق مع التخصص</option>
+                    <option value="mgmt-navy-gold">الأكاديمي الملكي (كحلي وذهبي وقور)</option>
+                    <option value="tech-cyber">تكنولوجيا نيوم (أزرق سماوي تقني)</option>
+                    <option value="mgmt-emerald">الزمردي العلمي (أخضر زمردي استراتيجي)</option>
+                    <option value="econ-growth">الياقوتي المالي (عنابي وذهبي رصين)</option>
+                    <option value="tech-code">الرمادي الحوسبي (حديث ونظيف)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Step 2 Actions Footer -->
+              <div class="step-actions-footer">
+                <button type="button" class="btn btn-secondary" id="btn-step2-prev" style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700;">
+                  <span>⬅</span>
+                  <span>السابق: مفتاح API</span>
+                </button>
+                <span class="step-badge-counter">الخطوة 2 من 3</span>
+                <button type="button" class="btn btn-primary" id="btn-step2-next" style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700; padding: 0.65rem 1.5rem;">
+                  <span>الانتقال إلى خطة البحث والتوليد</span>
+                  <span>➔</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ================= STEP 3: RESEARCH TOPIC, PLAN (MABAHETH & MATALIB) & GENERATE ================= -->
+          <div class="studio-step-panel hidden" id="step-panel-3">
+            <div class="editor-card">
+              <div class="editor-card-header">
+                <h3 class="editor-card-title">
+                  <span>📑</span>
+                  <span>الخطوة الثالثة: عنوان البحث، المباحث والمطالب، وتوليد العرض</span>
+                </h3>
+                <span class="badge-confidence high">منهجية PPT-Master المعيارية</span>
+              </div>
+
+              <!-- Topic Prompt Input -->
+              <div class="form-group" style="margin-bottom: 1rem;">
+                <label class="form-label" for="ai-topic-prompt">
+                  📝 عنوان أو موضوع البحث الأكاديمي: <span class="text-danger">*</span>
+                </label>
+                <textarea 
+                  id="ai-topic-prompt" 
+                  class="form-textarea" 
+                  rows="3" 
+                  placeholder="اكتب عنوان البحث الأكاديمي، مثال: 'أثر التحول الرقمي وحوكمة النظم الذكية في تحسين كفاءة الأداء المؤسسي للمؤسسات الاقتصادية'..."
+                ></textarea>
+              </div>
+
+              <!-- Suggested Research Topics Chips -->
+              <div style="margin-bottom: 1.25rem;">
+                <span style="font-size: 0.82rem; font-weight: 700; color: var(--app-text-muted); display: block; margin-bottom: 0.5rem;">
+                  نماذج وموضوعات بحثية مقترحة للتجربة الفورية:
+                </span>
+                <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                  <button type="button" class="ai-preset-chip" data-ai-preset="أثر التحول الرقمي وحوكمة النظم الذكية في تحسين كفاءة الأداء المؤسسي">
+                    💼 التحول الرقمي وحوكمة المؤسسات
+                  </button>
+                  <button type="button" class="ai-preset-chip" data-ai-preset="تطبيقات الذكاء الاصطناعي التوليدي في التشخيص السريري وجودة الرعاية الصحية">
+                    🏥 الذكاء الاصطناعي والرعاية الصحية
+                  </button>
+                  <button type="button" class="ai-preset-chip" data-ai-preset="التحديات والتشريعات القانونية لعقود تقنية البلوكشين وحماية البيانات">
+                    ⚖️ التشريعات القانونية والبلوكشين
+                  </button>
+                  <button type="button" class="ai-preset-chip" data-ai-preset="السياسات النقدية للبنوك المركزية وأثرها في احتواء موجات التضخم الاقتصادي">
+                    📈 التضخم والسياسات النقدية
+                  </button>
+                  <button type="button" class="ai-preset-chip" data-ai-preset="أمن المعلومات وتحليل الثغرات السيبرانية في البنى السحابية الحديثة">
+                    🛡️ الأمن السيبراني والحوسبة السحابية
+                  </button>
+                  <button type="button" class="ai-preset-chip" data-ai-preset="إدارة سلاسل الإمداد اللوجستية وتطبيقات الاستدامة البيئية الخضراء">
+                    🌿 الاستدامة وسلاسل الإمداد
+                  </button>
+                </div>
+              </div>
+
+              <!-- Research Plan Configuration: Mabaheth, Matalib, and Slides -->
+              <div class="grid-3col" style="margin-bottom: 1rem;">
+                <div class="form-group">
+                  <label class="form-label" for="ai-mabhath-count">
+                    🏛️ عدد المباحث الرئيسية:
+                  </label>
+                  <select id="ai-mabhath-count" class="form-select">
+                    <option value="2">مبحثان (2 مباحث رئيسية)</option>
+                    <option value="3" selected>3 مباحث رئيسية (الخطة المعيارية الموصى بها)</option>
+                    <option value="4">4 مباحث رئيسية</option>
+                    <option value="5">5 مباحث رئيسية (أطروحة موسعة)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="ai-matlab-count">
+                    📑 عدد المطالب لكل مبحث:
+                  </label>
+                  <select id="ai-matlab-count" class="form-select">
+                    <option value="2">مطلبان (2 مطالب لكل مبحث)</option>
+                    <option value="3" selected>3 مطالب لكل مبحث (المعيار الأكاديمي 3×3)</option>
+                    <option value="4">4 مطالب لكل مبحث</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="ai-slide-count">
+                    🖼️ إجمالي عدد الشرائح:
+                  </label>
+                  <select id="ai-slide-count" class="form-select">
+                    <option value="16" selected>16 شريحة (خطة كاملة: غلاف + خطة + مقدمة + 9 مطالب + خاتمة ومراجع)</option>
+                    <option value="8">8 شرائح (عرض بحثي موجز ومكثف)</option>
+                    <option value="12">12 شريحة (عرض بحثي متوسط)</option>
+                    <option value="18">18 شريحة (أطروحة متقدمة مع فواصل الفصول)</option>
+                    <option value="22">22 شريحة (دراسة شاملة موسعة)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Live Research Plan Structure Pill -->
+              <div class="research-structure-box">
+                <span class="research-structure-icon">📊</span>
+                <div class="research-structure-content" id="research-structure-pill">
+                  <strong>الهيكل الأكاديمي المعتمد:</strong>
+                  غلاف رسمي + خطة العرض + مقدمة وإشكالية + <strong>3 مباحث رئيسية</strong> × <strong>3 مطالب</strong> = <strong>9 مطالب تخصصية</strong> + خاتمة وتوصيات ومراجع (16 شريحة).
+                </div>
+              </div>
+
+              <!-- Main Generation Button -->
+              <button type="button" class="btn-generate-ai" id="btn-generate-ai-deck">
+                <span>✨</span>
+                <span>توليد العرض الأكاديمي بالذكاء الاصطناعي (PPT-Master)</span>
+              </button>
+
+              <!-- Generation Progress Card (Hidden by default) -->
+              <div id="ai-progress-card" class="ai-progress-card hidden">
+                <div class="ai-progress-message">
+                  <div class="spinner-icon"></div>
+                  <span id="ai-progress-text">جاري إعداد محرك التوليد الأكاديمي...</span>
+                </div>
+                <div class="ai-progress-bar-track">
+                  <div id="ai-progress-bar-fill" class="ai-progress-bar-fill" style="width: 20%;"></div>
+                </div>
+              </div>
+
+              <!-- Generation Result Summary Card (Hidden by default) -->
+              <div id="ai-results-card" class="ai-result-summary-card hidden">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
+                  <h4 style="font-size: 1.15rem; font-weight: 800; color: #34d399; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>🎉</span>
+                    <span>تم توليد العرض الأكاديمي بنجاح بمنهجية PPT-Master!</span>
+                  </h4>
+                  <span class="badge-confidence high" id="result-slides-count-badge">16 شريحة</span>
+                </div>
+
+                <p style="font-size: 0.95rem; color: #cbd5e1; margin-bottom: 1rem; line-height: 1.6;">
+                  عنوان البحث: <strong id="result-deck-title" style="color: #38bdf8;">-</strong>
+                </p>
+
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                  <button type="button" class="btn btn-primary" id="btn-jump-to-preview">
+                    <span>معاينة الشرائح المباشرة</span>
+                    <span>➔</span>
+                  </button>
+                  <button type="button" class="btn btn-success" id="btn-result-download-pptx">
+                    <span>📥 تحميل PowerPoint (.pptx)</span>
+                  </button>
+                  <button type="button" class="btn btn-secondary" id="btn-result-download-pdf">
+                    <span>📄 تصدير ملف PDF</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Step 3 Actions Footer -->
+              <div class="step-actions-footer">
+                <button type="button" class="btn btn-secondary" id="btn-step3-prev" style="display: flex; align-items: center; gap: 0.5rem; font-weight: 700;">
+                  <span>⬅</span>
+                  <span>السابق: تعديل البيانات والتخصص</span>
+                </button>
+                <span class="step-badge-counter">الخطوة 3 من 3</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sidebar: PPT-Master Methodology & Status -->
+        <aside class="editor-sidebar">
+          
+          <!-- PPT-Master Methodology Card -->
+          <div class="sidebar-card">
+            <h4 class="sidebar-card-title">
+              <span>🎯</span>
+              <span>ركائز منهجية PPT-Master المعتمدة</span>
+            </h4>
+            
+            <div class="methodology-list">
+              <div class="methodology-item">
+                <div class="methodology-icon">📌</div>
+                <div>
+                  <strong>هيكل سردي أكاديمي رصين:</strong>
+                  غلاف، تمهيد وإشكالية، أهداف، مباحث تحليلية، خاتمة وتوصيات، ومراجع موثقة (APA).
+                </div>
+              </div>
+
+              <div class="methodology-item">
+                <div class="methodology-icon">📊</div>
+                <div>
+                  <strong>تنوع تحليلي ذكي لكل شريحة:</strong>
+                  مقارنات معيارية، مؤشرات إحصائية ورسوم، مراحل متسلسلة، ومصفوفات بيانات.
+                </div>
+              </div>
+
+              <div class="methodology-item">
+                <div class="methodology-icon">💎</div>
+                <div>
+                  <strong>أيقونات واجهة متجهة (UIcons):</strong>
+                  استخدام أيقونات Flaticon UIcons المتجهة الموحدة بدلاً من الرموز العشوائية أو الرسوم الهزلية.
+                </div>
+              </div>
+
+              <div class="methodology-item">
+                <div class="methodology-icon">⚡</div>
+                <div>
+                  <strong>خلاصات تنفيذية (Executive Takeaways):</strong>
+                  كل شريحة تحمل استنتاجاً مركزاً يعزز القيمة المعرفية للعرض أمام اللجنة.
+                </div>
+              </div>
+
+              <div class="methodology-item">
+                <div class="methodology-icon">🚫</div>
+                <div>
+                  <strong>صفر تكرار وصفر شرائح "تابع":</strong>
+                  كل شريحة مستقلة بذاتها وتلخص المحتوى بدقة لتناسب أبعاد 16:9 دون فيض.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Current Deck State Card -->
+          <div class="sidebar-card">
+            <h4 class="sidebar-card-title">
+              <span>📊</span>
+              <span>حالة العرض الحالي</span>
+            </h4>
+
+            <div style="background: var(--app-surface); border: 1px solid var(--app-border); border-radius: var(--radius-md); padding: 0.85rem; margin-bottom: 1rem;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.5rem;">
+                <span style="color: var(--app-text-muted);">إجمالي الشرائح المتولدة:</span>
+                <strong id="sidebar-total-slides" style="color: var(--theme-primary); font-size: 1.05rem;">0</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.5rem;">
+                <span style="color: var(--app-text-muted);">التخصص الأكاديمي:</span>
+                <strong id="sidebar-domain-name" style="color: var(--app-text);">-</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+                <span style="color: var(--app-text-muted);">النمط البصري النشط:</span>
+                <strong id="sidebar-theme-name" style="font-size: 0.82rem; color: var(--app-text);">-</strong>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-secondary" id="btn-goto-preview" style="width: 100%; justify-content: center;">
+              <span>الانتقال لمعاينة الشرائح</span>
+              <span>➔</span>
+            </button>
+          </div>
+
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- ================= VIEW 2: SLIDE PREVIEW & PPTX EXPORT ================= -->
+    <section id="view-preview" class="app-view-panel hidden">
+      <div class="preview-layout-grid">
+        
+        <!-- Thumbnails Sidebar -->
+        <aside class="thumbnails-sidebar">
+          <div class="thumbnails-header">
+            <span>شرائح العرض</span>
+            <span id="thumbs-counter">0</span>
+          </div>
+          <div id="thumbnails-list-container"></div>
+        </aside>
+
+        <!-- Main Slide Viewer Stage -->
+        <div class="preview-viewer-container">
+          
+          <!-- Viewer Toolbar -->
+          <div class="preview-toolbar-card">
+            <div class="toolbar-nav-group">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-prev-slide" title="الشريحة السابقة (السهم الأيمن)">
+                السابق ◀
+              </button>
+              <div class="slide-counter-display" id="viewer-counter-display">1 / 1</div>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-next-slide" title="الشريحة التالية (السهم الأيسر)">
+                ▶ التالي
+              </button>
+            </div>
+
+            <div class="toolbar-settings-group">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-fullscreen-toggle" title="عرض ملء الشاشة">
+                ملء الشاشة
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-return-to-studio" title="العودة لاستوديو الذكاء الاصطناعي">
+                ✏️ استوديو التوليد
+              </button>
+              <button type="button" class="btn btn-success" id="btn-preview-export-pptx">
+                <span>تصدير PowerPoint (.pptx)</span>
+              </button>
+              <button type="button" class="btn btn-secondary" id="btn-preview-export-pdf" title="تصدير جميع الشرائح كملف PDF عالي الدقة">
+                <span>📄 تصدير PDF</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 16:9 Presentation Stage -->
+          <div class="presentation-stage-frame" id="presentation-fullscreen-target">
+            <div id="active-slide-render-target" style="width: 100%; height: 100%;"></div>
+            <!-- Fullscreen Overlay Controls (visible in presentation mode) -->
+            <button type="button" class="fs-nav-btn fs-nav-prev" id="btn-fs-prev" title="السابق (السهم الأيمن)">
+              &#10095;
+            </button>
+            <button type="button" class="fs-nav-btn fs-nav-next" id="btn-fs-next" title="التالي (السهم الأيسر / النقر)">
+              &#10094;
+            </button>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--app-text-muted); padding: 0.25rem 0.5rem;">
+            <span>💡 نصيحة: يمكنك استخدام الأسهم في لوحة المفاتيح (◄ / ►) للتنقل السريع بين الشرائح.</span>
+            <span>الأبعاد: 16:9 عريضة متوافقة تماماً مع PowerPoint ومصممة بمنهجية PPT-Master</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= VIEW 3: DESIGN IDENTITY & THEMES ================= -->
+    <section id="view-settings" class="app-view-panel hidden">
+      <div class="editor-card mb-2">
+        <div class="editor-card-header">
+          <h3 class="editor-card-title">
+            <span>🎨</span>
+            <span>الأنماط البصرية الأكاديمية الـ 18 حسب التخصصات العلمية</span>
+          </h3>
+          <span class="text-muted">3 أنماط مخصصة لكل مجال مع درجات ألوان متناسقة وخطوط عربية واضحة</span>
+        </div>
+
+        <p style="font-size: 0.9rem; color: var(--app-text-muted); margin-bottom: 1.5rem;">
+          يقوم المحرك الذكي باختيار النمط المناسب تلقائياً بناءً على تخصص بحثك. يمكنك أدناه استعراض كافة الأنماط المتاحة وتغيير النمط أو ألوان القوالب بنقرة واحدة.
+        </p>
+
+        <!-- Variants Grid Render Target -->
+        <div id="theme-variants-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem;"></div>
+      </div>
+
+      <!-- Local Assets Explorer Card -->
+      <div class="editor-card">
+        <div class="editor-card-header">
+          <h3 class="editor-card-title">
+            <span>🖼️</span>
+            <span>مكتبة الأصول والرسوم التوضيحية المحلية (Flaticon UIcons)</span>
+          </h3>
+          <span class="badge-confidence high">تعمل 100% دون إنترنت أو خوادم خارجية</span>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--app-text-muted); margin-bottom: 1rem;">
+          كافة الرسوم التوضيحية مخزنة محلياً بصيغة SVG متجهة، مما يضمن ظهورها بدقة متناهية داخل العرض وبحجم خفيف دون أي روابط خارجية.
+        </p>
+        <div id="assets-grid-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem;"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JavaScript Entry Point -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

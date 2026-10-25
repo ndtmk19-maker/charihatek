@@ -1,0 +1,16 @@
+{
+  "name": "academic-pptx-generator",
+  "version": "1.0.0",
+  "description": "Smart Rule-Based Academic PowerPoint Presentation Generator",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide": "^1.61.0",
+    "pptxgenjs": "^4.0.1",
+    "vite": "^8.3.5"
+  }
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Rounded shield / circle badge -->
+  <rect x="18" y="18" width="84" height="84" rx="20" fill="#f0fdfa" stroke="#0d9488" stroke-width="3"/>
+  <!-- Medical Cross -->
+  <path d="M48 34H72V48H86V72H72V86H48V72H34V48H48V34Z" fill="#0d9488"/>
+  <circle cx="60" cy="60" r="6" fill="#f0fdfa"/>
+</svg>

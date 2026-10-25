@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Calculator Body -->
+  <rect x="26" y="16" width="68" height="88" rx="10" fill="#064e3b" stroke="#047857" stroke-width="3"/>
+  <!-- Screen -->
+  <rect x="36" y="26" width="48" height="18" rx="4" fill="#a7f3d0" stroke="#059669" stroke-width="1.5"/>
+  <text x="78" y="39" font-family="monospace" font-size="12" font-weight="bold" fill="#065f46" text-anchor="end">12,450.00</text>
+  
+  <!-- Keys grid -->
+  <rect x="36" y="52" width="12" height="10" rx="2" fill="#34d399"/>
+  <rect x="54" y="52" width="12" height="10" rx="2" fill="#34d399"/>
+  <rect x="72" y="52" width="12" height="10" rx="2" fill="#fbbf24"/>
+  
+  <rect x="36" y="66" width="12" height="10" rx="2" fill="#34d399"/>
+  <rect x="54" y="66" width="12" height="10" rx="2" fill="#34d399"/>
+  <rect x="72" y="66" width="12" height="10" rx="2" fill="#10b981"/>
+  
+  <rect x="36" y="80" width="12" height="10" rx="2" fill="#34d399"/>
+  <rect x="54" y="80" width="12" height="10" rx="2" fill="#34d399"/>
+  <rect x="72" y="80" width="12" height="10" rx="2" fill="#10b981"/>
+</svg>

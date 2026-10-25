@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Left Quote mark -->
+  <path d="M26 68C26 52 38 42 50 36V48C42 50 38 54 38 60H50V86H26V68Z" fill="#64748b"/>
+  <!-- Right Quote mark -->
+  <path d="M66 68C66 52 78 42 90 36V48C82 50 78 54 78 60H90V86H66V68Z" fill="#64748b"/>
+</svg>
