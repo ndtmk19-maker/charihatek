@@ -699,16 +699,22 @@ function showToast(msg) {
   toast.id = 'app-toast-alert';
   toast.style.cssText = `
     position: fixed;
-    bottom: 24px;
-    right: 24px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: calc(100vw - 32px);
+    width: max-content;
     background: #0f172a;
     color: #ffffff;
-    padding: 12px 20px;
+    padding: 10px 18px;
     border-radius: 8px;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 600;
-    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px -3px rgba(0,0,0,0.4);
+    border: 1px solid #1e2e4a;
     z-index: 9999;
+    text-align: center;
+    direction: rtl;
     animation: fadeIn 0.2s ease-in-out;
   `;
   toast.textContent = msg;

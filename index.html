@@ -29,13 +29,17 @@
       <!-- Navigation View Tabs -->
       <nav class="nav-tabs-group" role="tablist">
         <button type="button" class="nav-tab-btn nav-tab-active" data-view-target="editor">
-          <span>استوديو الذكاء الاصطناعي</span>
+          <span class="desktop-only">استوديو الذكاء الاصطناعي</span>
+          <span class="mobile-only">الاستوديو</span>
         </button>
         <button type="button" class="nav-tab-btn" data-view-target="preview">
-          <span>معاينة الشرائح (<span id="tab-slide-count">0</span>)</span>
+          <span class="desktop-only">معاينة الشرائح</span>
+          <span class="mobile-only">المعاينة</span>
+          (<span id="tab-slide-count">0</span>)
         </button>
         <button type="button" class="nav-tab-btn" data-view-target="settings">
-          <span>الهوية والأنماط</span>
+          <span class="desktop-only">الهوية والأنماط</span>
+          <span class="mobile-only">الهوية</span>
         </button>
       </nav>
 
@@ -46,7 +50,8 @@
           <span id="header-api-text">مفتاح API غير مدخل</span>
         </div>
         <button type="button" class="btn btn-primary btn-sm" id="btn-global-export-pptx">
-          <span>تصدير PowerPoint (.pptx)</span>
+          <span class="desktop-only">تصدير PowerPoint (.pptx)</span>
+          <span class="mobile-only">تصدير PPTX</span>
         </button>
         <button type="button" class="btn btn-secondary btn-sm" id="btn-global-export-pdf" title="تصدير جميع الشرائح كملف PDF عالي الدقة">
           <span>📄 تصدير PDF</span>
@@ -589,16 +594,17 @@
 
             <div class="toolbar-settings-group">
               <button type="button" class="btn btn-secondary btn-sm" id="btn-fullscreen-toggle" title="عرض ملء الشاشة">
-                ملء الشاشة
+                <span>⛶ ملء الشاشة</span>
               </button>
               <button type="button" class="btn btn-secondary btn-sm" id="btn-return-to-studio" title="العودة لاستوديو الذكاء الاصطناعي">
-                ✏️ استوديو التوليد
+                <span>✏️ الاستوديو</span>
               </button>
-              <button type="button" class="btn btn-success" id="btn-preview-export-pptx">
-                <span>تصدير PowerPoint (.pptx)</span>
+              <button type="button" class="btn btn-success btn-sm" id="btn-preview-export-pptx">
+                <span class="desktop-only">تصدير PowerPoint (.pptx)</span>
+                <span class="mobile-only">تصدير PPTX</span>
               </button>
-              <button type="button" class="btn btn-secondary" id="btn-preview-export-pdf" title="تصدير جميع الشرائح كملف PDF عالي الدقة">
-                <span>📄 تصدير PDF</span>
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-preview-export-pdf" title="تصدير جميع الشرائح كملف PDF عالي الدقة">
+                <span>📄 PDF</span>
               </button>
             </div>
           </div>
@@ -615,9 +621,9 @@
             </button>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--app-text-muted); padding: 0.25rem 0.5rem;">
-            <span>💡 نصيحة: يمكنك استخدام الأسهم في لوحة المفاتيح (◄ / ►) للتنقل السريع بين الشرائح.</span>
-            <span>الأبعاد: 16:9 عريضة متوافقة تماماً مع PowerPoint ومصممة بمنهجية PPT-Master</span>
+          <div class="preview-hints-row" style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--app-text-muted); padding: 0.25rem 0.5rem; flex-wrap: wrap; gap: 0.4rem;">
+            <span>💡 نصيحة: يمكنك استخدام الأسهم أو السحب باللمس ↔ للتنقل.</span>
+            <span class="desktop-only">الأبعاد: 16:9 متوافقة تماماً مع PowerPoint ومصممة بمنهجية PPT-Master</span>
           </div>
 
         </div>
@@ -641,7 +647,7 @@
         </p>
 
         <!-- Variants Grid Render Target -->
-        <div id="theme-variants-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem;"></div>
+        <div id="theme-variants-grid" class="theme-variants-grid"></div>
       </div>
 
       <!-- Local Assets Explorer Card -->

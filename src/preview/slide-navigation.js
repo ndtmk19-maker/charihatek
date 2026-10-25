@@ -139,6 +139,38 @@ export class SlideNavigation {
         this.prev();
       }
     });
+
+    // Touch Swipe Gesture Support for Mobile Screens
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    stage.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    stage.addEventListener('touchend', (e) => {
+      if (!e.changedTouches || e.changedTouches.length === 0) return;
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+
+      // Only trigger if horizontal swipe is prominent and larger than vertical movement
+      if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+        const isRtl = (this.appState?.draft?.language || 'ar') === 'ar';
+        if (deltaX < 0) {
+          // Swipe to Left: in Arabic RTL advances to next slide
+          if (isRtl) this.next(); else this.prev();
+        } else {
+          // Swipe to Right: in Arabic RTL returns to previous slide
+          if (isRtl) this.prev(); else this.next();
+        }
+      }
+    }, { passive: true });
   }
 
   toggleFullscreen(element) {
