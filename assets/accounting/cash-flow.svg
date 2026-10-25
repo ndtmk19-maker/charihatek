@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Central Currency Coin -->
+  <circle cx="60" cy="60" r="26" fill="#15803d" stroke="#166534" stroke-width="2.5"/>
+  <circle cx="60" cy="60" r="20" fill="#22c55e" fill-opacity="0.2" stroke="#86efac" stroke-width="1.5"/>
+  <text x="60" y="68" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ffffff" text-anchor="middle">$</text>
+  
+  <!-- Flow arrows in & out -->
+  <path d="M20 34C32 20 50 16 68 18" stroke="#16a34a" stroke-width="3" stroke-linecap="round"/>
+  <polygon points="68,12 76,20 66,24" fill="#16a34a"/>
+  
+  <path d="M100 86C88 100 70 104 52 102" stroke="#16a34a" stroke-width="3" stroke-linecap="round"/>
+  <polygon points="52,108 44,100 54,96" fill="#16a34a"/>
+</svg>

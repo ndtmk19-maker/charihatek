@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Globe -->
+  <circle cx="60" cy="60" r="42" fill="#dcfce7" stroke="#15803d" stroke-width="2.5"/>
+  <ellipse cx="60" cy="60" rx="42" ry="20" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <ellipse cx="60" cy="60" rx="20" ry="42" stroke="#22c55e" stroke-width="1.5"/>
+  
+  <!-- Trade arrows around -->
+  <path d="M60 12C86 12 108 34 108 60" stroke="#166534" stroke-width="3" stroke-linecap="round"/>
+  <path d="M102 48L108 60L96 64" fill="#166534"/>
+  
+  <path d="M60 108C34 108 12 86 12 60" stroke="#166534" stroke-width="3" stroke-linecap="round"/>
+  <path d="M18 72L12 60L24 56" fill="#166534"/>
+</svg>

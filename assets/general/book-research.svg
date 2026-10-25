@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Open Book -->
+  <path d="M60 40C48 30 28 32 18 36V90C28 86 48 84 60 94C72 84 92 86 102 90V36C92 32 72 30 60 40Z" fill="#f8fafc" stroke="#334155" stroke-width="2.5" stroke-linejoin="round"/>
+  <line x1="60" y1="40" x2="60" y2="94" stroke="#334155" stroke-width="2.5"/>
+  
+  <!-- Left page lines -->
+  <line x1="28" y1="48" x2="50" y2="48" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="28" y1="58" x2="50" y2="58" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="28" y1="68" x2="44" y2="68" stroke="#94a3b8" stroke-width="2"/>
+  
+  <!-- Right page lines -->
+  <line x1="70" y1="48" x2="92" y2="48" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="70" y1="58" x2="92" y2="58" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="70" y1="68" x2="86" y2="68" stroke="#94a3b8" stroke-width="2"/>
+  
+  <!-- Bookmark ribbon -->
+  <path d="M60 40V72L66 66L72 72V38" fill="#d97706"/>
+</svg>

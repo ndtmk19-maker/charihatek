@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Mortarboard cap -->
+  <polygon points="60,26 104,46 60,66 16,46" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+  <!-- Cap skull portion -->
+  <path d="M34 55V76C34 86 46 94 60 94C74 94 86 86 86 76V55" fill="#0f172a" stroke="#1e293b" stroke-width="2"/>
+  <!-- Tassel button & cord -->
+  <circle cx="60" cy="46" r="3" fill="#d97706"/>
+  <path d="M60 46Q86 52 92 68V84" stroke="#d97706" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <rect x="88" y="80" width="8" height="12" rx="2" fill="#d97706"/>
+</svg>
