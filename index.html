@@ -79,7 +79,10 @@
               <div class="step-circle" id="step-circle-1">1</div>
               <div class="step-info">
                 <span class="step-title">الخطوة الأولى</span>
-                <span class="step-subtitle">🔑 مفتاح الـ API والنموذج</span>
+                <span class="step-subtitle">
+                  <span class="desktop-only">🔑 مفتاح الـ API والنموذج</span>
+                  <span class="mobile-only">الـ API</span>
+                </span>
               </div>
             </div>
             <div class="stepper-divider" id="step-divider-1"></div>
@@ -87,7 +90,10 @@
               <div class="step-circle" id="step-circle-2">2</div>
               <div class="step-info">
                 <span class="step-title">الخطوة الثانية</span>
-                <span class="step-subtitle">🎓 البيانات والتخصص الأكاديمي</span>
+                <span class="step-subtitle">
+                  <span class="desktop-only">🎓 البيانات والتخصص الأكاديمي</span>
+                  <span class="mobile-only">التخصص</span>
+                </span>
               </div>
             </div>
             <div class="stepper-divider" id="step-divider-2"></div>
@@ -95,7 +101,10 @@
               <div class="step-circle" id="step-circle-3">3</div>
               <div class="step-info">
                 <span class="step-title">الخطوة الثالثة</span>
-                <span class="step-subtitle">📑 خطة البحث والتوليد</span>
+                <span class="step-subtitle">
+                  <span class="desktop-only">📑 خطة البحث والتوليد</span>
+                  <span class="mobile-only">التوليد</span>
+                </span>
               </div>
             </div>
           </nav>
@@ -125,37 +134,38 @@
                     type="password" 
                     id="input-api-key" 
                     class="form-input" 
-                    placeholder="الصق مفتاح Google Gemini API هنا (يبدأ بـ AIzaSy...)" 
+                    placeholder="الصق مفتاح Google Gemini API هنا (AIzaSy...)" 
                     autocomplete="off"
                   />
                   <button type="button" class="btn-toggle-eye" id="btn-toggle-key-visibility" title="إظهار / إخفاء المفتاح">
                     👁️
                   </button>
                 </div>
-                <button type="button" class="btn btn-primary btn-sm" id="btn-save-key">
-                  حفظ المفتاح
-                </button>
-                <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-key" title="حذف المفتاح المخزن">
-                  مسح
-                </button>
+                <div class="api-key-actions-row">
+                  <button type="button" class="btn btn-primary btn-sm" id="btn-save-key">
+                    حفظ المفتاح
+                  </button>
+                  <button type="button" class="btn btn-secondary btn-sm" id="btn-clear-key" title="حذف المفتاح المخزن">
+                    مسح
+                  </button>
+                </div>
               </div>
 
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; flex-wrap: wrap; gap: 0.75rem; font-size: 0.84rem;">
-                <div style="display: flex; align-items: center; gap: 0.5rem;">
-                  <label for="select-ai-model" style="font-weight: 700; color: var(--app-text);">نموذج التوليد:</label>
-                  <select id="select-ai-model" class="form-select" style="padding: 0.35rem 0.65rem; font-size: 0.84rem; width: auto;">
-                    <option value="gemini-3.8-flash" selected>Gemini 3.8 Flash (النموذج الرسمي الأحدث - فائق السرعة والدقة)</option>
+              <div class="model-selection-row">
+                <div class="model-select-group">
+                  <label for="select-ai-model" style="font-weight: 700; color: var(--app-text); white-space: nowrap;">نموذج التوليد:</label>
+                  <select id="select-ai-model" class="form-select">
+                    <option value="gemini-3.8-flash" selected>Gemini 3.8 Flash (فائق السرعة والدقة)</option>
                     <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
-                    <option value="gemini-3.8-pro">Gemini 3.8 Pro (أعلى عمق استدلالي للموضوعات المعقدة)</option>
+                    <option value="gemini-3.8-pro">Gemini 3.8 Pro (أعلى عمق استدلالي)</option>
                   </select>
                 </div>
-                <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" style="color: var(--theme-primary); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 0.25rem;">
-                  <span>احصل على مفتاح API مجاني فوري من Google AI Studio</span>
-                  <span>↗</span>
+                <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="api-key-link">
+                  <span>احصل على مفتاح API مجاني فوري من Google AI Studio ↗</span>
                 </a>
               </div>
 
-              <div style="background: rgba(255, 255, 255, 0.03); border: 1px dashed var(--app-border); border-radius: var(--radius-md); padding: 0.85rem 1rem; margin-top: 1.25rem; font-size: 0.82rem; color: #94a3b8; line-height: 1.6;">
+              <div class="api-guide-tip-box">
                 💡 <strong>إرشاد سريع:</strong> لا تملك مفتاحاً؟ افتح الرابط المجاني أعلاه، سجّل الدخول بحساب Google، واضغط <strong>Create API Key</strong> ثم الصقه هنا واضغط <strong>الانتقال للخطوة التالية</strong>.
               </div>
 

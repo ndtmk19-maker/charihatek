@@ -49,6 +49,7 @@
 
 html {
   box-sizing: border-box;
+  width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
 }
@@ -63,8 +64,10 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
+  position: relative;
 }
 
 /* App Header & Navigation Bar */
@@ -273,6 +276,8 @@ body {
 
 .form-input, .form-textarea, .form-select {
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   font-family: inherit;
   font-size: 0.92rem;
   padding: 0.6rem 0.85rem;
@@ -282,6 +287,11 @@ body {
   color: var(--app-text);
   transition: border-color 0.2s, box-shadow 0.2s;
   direction: inherit;
+}
+
+.form-select {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .form-input:focus, .form-textarea:focus, .form-select:focus {
@@ -302,6 +312,8 @@ body {
   width: 100%;
   margin: 1.5rem auto;
   padding: 0 1.5rem;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .hidden {
@@ -449,6 +461,10 @@ body {
   .app-main {
     padding: 0 0.5rem;
     margin: 0.65rem auto;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
 
   /* Form inputs touch accessibility and preventing iOS Safari auto-zoom */
