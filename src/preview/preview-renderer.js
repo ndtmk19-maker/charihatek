@@ -263,7 +263,7 @@ function renderAgendaSlideHtml(model, theme, domainInfo) {
         </div>
 
         <!-- 3 Columns for 3 Mabaheth -->
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.85rem; flex: 1;">
+        <div class="agenda-mabaheth-grid" style="gap: 0.85rem; flex: 1;">
           ${plan.slice(0, 3).map((sec, idx) => `
             <div style="background: ${theme.surface}; border: 1px solid ${theme.border}; border-top: 3px solid ${theme.primary}; border-radius: 8px; padding: 0.85rem; display: flex; flex-direction: column; gap: 0.6rem; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
               <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -332,7 +332,7 @@ function renderIntroductionSlideHtml(model, theme, domainInfo) {
         </div>
 
         <!-- Dual Column: Problem Statement vs Objectives -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; flex: 1;">
+        <div class="intro-cards-grid" style="gap: 1rem; flex: 1;">
           
           <!-- Card 1: Problem Statement -->
           <div class="intro-card" style="background: ${theme.surface}; border: 1px solid ${theme.border}; border-top: 3.5px solid ${theme.secondary}; border-radius: 8px; padding: 1rem; display: flex; flex-direction: column; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">

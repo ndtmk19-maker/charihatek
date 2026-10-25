@@ -262,6 +262,14 @@
   display: flex !important;
 }
 
+.presentation-stage-frame:fullscreen .slide-canvas,
+.presentation-stage-frame:-webkit-full-screen .slide-canvas {
+  height: 100% !important;
+  aspect-ratio: 16 / 9 !important;
+  overflow: hidden !important;
+  padding: 1.5rem 2rem !important;
+}
+
 /* Fullscreen Overlay Floating Chevrons */
 .fs-nav-btn {
   display: none;
@@ -1402,88 +1410,440 @@
   }
 }
 
+/* Base Desktop Grids for Agenda & Intro */
+.agenda-mabaheth-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.intro-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 /* ================= SLIDE CANVAS MOBILE ADAPTIVE SCALING ================= */
 @media (max-width: 768px) {
-  .presentation-stage-frame {
-    min-height: 220px;
+  /* 1. Remove 16:9 fixed height lock in portrait so the entire slide is visible without clipping */
+  .presentation-stage-frame:not(:fullscreen) {
+    aspect-ratio: auto !important;
+    height: auto !important;
+    min-height: 340px !important;
+    overflow: visible !important;
     border-radius: var(--radius-md);
+    background: transparent !important;
+    box-shadow: none !important;
+    display: block !important;
+  }
+
+  #active-slide-render-target {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
   }
 
   .slide-canvas {
-    padding: 0.75rem 0.85rem 0.5rem !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch;
+    height: auto !important;
+    min-height: 340px !important;
+    padding: 1.25rem 1rem 1rem !important;
+    border-radius: var(--radius-md);
+    overflow: visible !important;
+    box-shadow: var(--shadow-md);
+    box-sizing: border-box;
+    width: 100% !important;
   }
 
-  .slide-canvas::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
-  .slide-canvas::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-  }
-
-  .slide-canvas .slide-header-title {
-    font-size: 0.95rem !important;
-    line-height: 1.25 !important;
-    margin-bottom: 0.25rem !important;
+  .slide-inner {
+    height: auto !important;
+    flex: none !important;
+    overflow: visible !important;
+    margin-top: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
-  .slide-canvas .slide-header-badge {
-    font-size: 0.62rem !important;
-    padding: 0.12rem 0.45rem !important;
+  /* 2. Top Header & Badges */
+  .slide-top-header {
+    margin-bottom: 0.65rem !important;
+    padding-bottom: 0.35rem !important;
   }
 
-  .slide-canvas .slide-meta-row {
-    margin-bottom: 0.35rem !important;
+  .slide-breadcrumb {
+    font-size: 0.75rem !important;
+    gap: 0.3rem !important;
   }
 
-  .slide-canvas .standard-grid-with-visual,
-  .slide-canvas .comparison-columns-container,
-  .slide-canvas .conclusion-recommendations-grid {
-    grid-template-columns: 1fr !important;
-    gap: 0.45rem !important;
-  }
-
-  .slide-canvas .stat-cards-deck {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.35rem !important;
-  }
-
-  .slide-canvas .steps-process-row {
-    flex-direction: column !important;
-    gap: 0.35rem !important;
-  }
-
-  .slide-canvas .takeaway-footer-pill {
-    padding: 0.3rem 0.55rem !important;
-    font-size: 0.68rem !important;
-    margin-top: 0.35rem !important;
-  }
-
-  .slide-canvas p,
-  .slide-canvas li,
-  .slide-canvas td,
-  .slide-canvas th,
-  .slide-canvas .slide-paragraph,
-  .slide-canvas .card-text-body,
-  .slide-canvas .step-text-body {
-    font-size: 0.72rem !important;
+  .slide-main-title {
+    font-size: 1.2rem !important;
     line-height: 1.35 !important;
+    margin-top: 0.2rem !important;
+    word-break: break-word;
   }
 
-  .slide-canvas .card-title-header {
-    font-size: 0.8rem !important;
+  .slide-corner-asset {
+    width: 32px !important;
+    height: 32px !important;
   }
 
-  .slide-canvas .metric-big-number {
+  .slide-header-badges {
+    position: static !important;
+    margin-bottom: 0.5rem !important;
+    padding: 0 !important;
+  }
+
+  /* 3. Cover Slide on Mobile */
+  .cover-layout {
+    height: auto !important;
+    padding: 0.5rem 0.25rem !important;
+    gap: 0.75rem !important;
+  }
+
+  .cover-basmala-cartouche {
+    font-size: 0.95rem !important;
+    margin-bottom: 0.4rem !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  .cover-academic-seal {
+    position: static !important;
+    margin-bottom: 0.5rem !important;
+    align-self: center !important;
+    font-size: 0.76rem !important;
+    padding: 0.25rem 0.65rem !important;
+  }
+
+  .cover-header-meta {
+    font-size: 0.78rem !important;
+    gap: 0.4rem !important;
+    margin-bottom: 0.65rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .cover-header-meta span {
+    padding: 0.25rem 0.65rem !important;
+    font-size: 0.75rem !important;
+    text-align: center;
+    width: 100%;
+    max-width: 280px;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+
+  .cover-title-card {
+    width: 100% !important;
+    padding: 1.15rem 0.85rem !important;
+    margin-bottom: 0.75rem !important;
+    box-sizing: border-box;
+  }
+
+  .cover-emblem-badge {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1.3rem !important;
+  }
+
+  .cover-title {
+    font-size: 1.25rem !important;
+    line-height: 1.4 !important;
+    text-align: center;
+    word-break: break-word;
+  }
+
+  .cover-accent-divider {
+    width: 80px !important;
+    height: 3px !important;
+  }
+
+  .cover-details-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+
+  .cover-meta-card {
+    padding: 0.55rem 0.75rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .meta-icon {
     font-size: 1.2rem !important;
   }
 
-  .slide-canvas .visual-illustration-container svg,
-  .slide-canvas .diagram-visual-container svg {
-    max-height: 75px !important;
+  .meta-role {
+    font-size: 0.68rem !important;
+  }
+
+  .meta-name {
+    font-size: 0.82rem !important;
+  }
+
+  /* 4. Section Divider on Mobile */
+  .divider-layout {
+    height: auto !important;
+    padding: 1.25rem 0.5rem !important;
+  }
+
+  .divider-side-stripe {
+    display: none !important;
+  }
+
+  .divider-content-box {
+    width: 100% !important;
+    padding: 1.5rem 1rem !important;
+    box-sizing: border-box;
+  }
+
+  .divider-medallion {
+    position: static !important;
+    margin-bottom: 0.65rem !important;
+    font-size: 0.85rem !important;
+    padding: 0.3rem 0.85rem !important;
+  }
+
+  .divider-title {
+    font-size: 1.35rem !important;
+    line-height: 1.35 !important;
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .divider-desc {
+    font-size: 0.88rem !important;
+    line-height: 1.45 !important;
+  }
+
+  /* 5. Agenda & Research Structure on Mobile */
+  .agenda-mabaheth-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+  }
+
+  /* 6. Introduction on Mobile */
+  .intro-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  .intro-card {
+    padding: 0.85rem !important;
+  }
+
+  /* 7. Standard Grid & Visual Diagram on Mobile */
+  .standard-grid-with-visual {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  .standard-body-card {
+    padding: 0.85rem !important;
+    gap: 0.65rem !important;
+  }
+
+  .slide-paragraph {
+    font-size: 0.88rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .slide-bullets-list {
+    gap: 0.45rem !important;
+  }
+
+  .slide-bullets-list li {
+    font-size: 0.84rem !important;
+    line-height: 1.45 !important;
+    gap: 0.4rem !important;
+  }
+
+  .slide-keypoint-callout {
+    padding: 0.55rem 0.75rem !important;
+    font-size: 0.82rem !important;
+    line-height: 1.5 !important;
+  }
+
+  .standard-side-visual-card {
+    padding: 0.85rem !important;
+  }
+
+  .domain-diagram-box svg {
+    max-height: 110px !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* 8. Comparison Diagram on Mobile */
+  .comparison-diagram-container {
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+  }
+
+  .comp-vs-medallion {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 0.78rem !important;
+    margin: 0.25rem auto !important;
+  }
+
+  .comp-head {
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.88rem !important;
+  }
+
+  .comp-items-list {
+    padding: 0.65rem 0.75rem !important;
+    gap: 0.45rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  /* 9. Pros & Cons on Mobile */
+  .pros-cons-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+  }
+
+  .pros-head, .cons-head {
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  .pros-list, .cons-list {
+    padding: 0.65rem 0.75rem !important;
+    gap: 0.45rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  /* 10. Process Steps Track on Mobile */
+  .process-steps-track {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+
+  .diagram-step-node {
+    width: 100% !important;
+    min-height: auto !important;
+    padding: 0.65rem 0.75rem !important;
+    box-sizing: border-box;
+  }
+
+  .process-flow-arrow {
+    transform: rotate(90deg) !important;
+    font-size: 1.25rem !important;
+    margin: 0.15rem 0 !important;
+  }
+
+  /* 11. Timeline on Mobile */
+  .timeline-diagram-wrapper {
+    padding: 0.5rem 0 !important;
+  }
+
+  .timeline-track-bar {
+    display: none !important;
+  }
+
+  .timeline-nodes-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  .timeline-node-card {
+    padding: 0.65rem 0.75rem !important;
+  }
+
+  /* 12. Definition on Mobile */
+  .definition-showcase-card {
+    grid-template-columns: 1fr !important;
+    padding: 0.85rem 1rem !important;
+    gap: 0.75rem !important;
+  }
+
+  .giant-quote-mark {
+    display: none !important;
+  }
+
+  .def-lead-paragraph {
+    font-size: 0.92rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* 13. Statistics on Mobile */
+  .stats-cards-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  .stat-value {
+    font-size: 1.25rem !important;
+  }
+
+  .chart-bars-visual {
+    gap: 0.5rem !important;
+    min-height: 90px !important;
+  }
+
+  .chart-bar-col {
+    width: 38px !important;
+  }
+
+  /* 14. Conclusion & Recommendations on Mobile */
+  .conclusion-container-v2 {
+    gap: 0.75rem !important;
+  }
+
+  .conclusion-hero-card {
+    padding: 0.75rem 0.85rem !important;
+    gap: 0.5rem !important;
+  }
+
+  .conclusion-medallion {
+    font-size: 0.78rem !important;
+    padding: 0.25rem 0.65rem !important;
+  }
+
+  .conclusion-hero-text {
+    font-size: 0.88rem !important;
+    line-height: 1.6 !important;
+  }
+
+  .conclusion-recommendations-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  .recommendation-card {
+    padding: 0.65rem 0.75rem !important;
+    gap: 0.4rem !important;
+  }
+
+  /* 15. Key Takeaway Footer Pill on Mobile */
+  .takeaway-footer-pill {
+    padding: 0.45rem 0.65rem !important;
+    font-size: 0.75rem !important;
+    margin-top: 0.5rem !important;
+    border-radius: var(--radius-sm) !important;
+    line-height: 1.4 !important;
+  }
+
+  .takeaway-lead-text strong {
+    font-size: 0.78rem !important;
+  }
+
+  /* 16. Footer Bar on Mobile */
+  .slide-footer-bar {
+    padding-top: 0.5rem !important;
+    margin-top: 0.65rem !important;
+    font-size: 0.72rem !important;
+    flex-wrap: wrap !important;
+    gap: 0.35rem !important;
+  }
+
+  .slide-meta-note {
+    font-size: 0.68rem !important;
+  }
+
+  .slide-number-indicator {
+    font-size: 0.72rem !important;
+    padding: 0.12rem 0.55rem !important;
   }
 }
 
