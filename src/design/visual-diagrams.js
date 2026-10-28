@@ -237,34 +237,34 @@ export function getDomainInfographicSvg(domain = 'general', primaryHex = '#0284c
           <path d="M 380 280 L 350 280 L 330 300 L 250 300" fill="none" stroke="${s}" stroke-width="1.5" stroke-opacity="0.3"/>
           <circle cx="250" cy="300" r="3" fill="${s}" fill-opacity="0.5"/>
 
-          <!-- Top Layer: Client & Intelligence UI -->
+          <!-- Top Layer: Client & Nodes -->
           <rect x="50" y="35" width="300" height="55" rx="8" fill="${p}" fill-opacity="0.08" stroke="${p}" stroke-width="1.5"/>
           <circle cx="80" cy="62" r="14" fill="${p}"/>
           <path d="M 75 62 L 79 66 L 86 58" fill="none" stroke="#ffffff" stroke-width="2"/>
-          <text x="105" y="58" font-family="Cairo, sans-serif" font-size="13" font-weight="bold" fill="${p}">طبقة التطبيقات وواجهات الذكاء</text>
-          <text x="105" y="76" font-family="Cairo, sans-serif" font-size="10" fill="#64748b">معالجة فورية وتفاعل ذكي للمستخدم</text>
+          <line x1="110" y1="55" x2="280" y2="55" stroke="${p}" stroke-width="3" stroke-linecap="round"/>
+          <line x1="110" y1="70" x2="220" y2="70" stroke="${p}" stroke-width="2" stroke-opacity="0.4" stroke-linecap="round"/>
 
           <!-- Connector 1 -->
           <line x1="200" y1="90" x2="200" y2="120" stroke="${p}" stroke-width="2" stroke-dasharray="4 3"/>
           <polygon points="196,118 200,125 204,118" fill="${p}"/>
 
-          <!-- Middle Layer: Core Algorithm & Engine -->
+          <!-- Middle Layer: Core Processing Engine -->
           <rect x="40" y="125" width="320" height="70" rx="10" fill="url(#techGrad)" filter="url(#shadow)"/>
           <circle cx="75" cy="160" r="18" fill="#ffffff" fill-opacity="0.2"/>
-          <text x="75" y="165" text-anchor="middle" font-family="Cairo, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">⚡</text>
-          <text x="108" y="153" font-family="Cairo, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">محرك الخوارزميات والتحليل العصبي</text>
-          <text x="108" y="175" font-family="Cairo, sans-serif" font-size="11" fill="#e0f2fe">نماذج تعلم آلي متقدمة ومعالجة متزامنة</text>
+          <circle cx="75" cy="160" r="8" fill="#ffffff"/>
+          <line x1="110" y1="152" x2="310" y2="152" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="110" y1="168" x2="250" y2="168" stroke="#ffffff" stroke-width="2" stroke-opacity="0.7" stroke-linecap="round"/>
 
           <!-- Connector 2 -->
           <line x1="200" y1="195" x2="200" y2="225" stroke="${s}" stroke-width="2" stroke-dasharray="4 3"/>
           <polygon points="196,223 200,230 204,223" fill="${s}"/>
 
-          <!-- Bottom Layer: Security & Cloud Infrastructure -->
+          <!-- Bottom Layer: Infrastructure Platform -->
           <rect x="50" y="230" width="300" height="55" rx="8" fill="${s}" fill-opacity="0.08" stroke="${s}" stroke-width="1.5"/>
           <circle cx="80" cy="257" r="14" fill="${s}"/>
-          <text x="80" y="262" text-anchor="middle" font-family="Cairo, sans-serif" font-size="11" fill="#ffffff">🔒</text>
-          <text x="105" y="253" font-family="Cairo, sans-serif" font-size="13" font-weight="bold" fill="${s}">البنية السحابية وقواعد البيانات الآمنة</text>
-          <text x="105" y="271" font-family="Cairo, sans-serif" font-size="10" fill="#64748b">تشفير سيبراني شامل وموثوقية عالية</text>
+          <rect x="74" y="251" width="12" height="12" rx="2" fill="#ffffff"/>
+          <line x1="110" y1="250" x2="290" y2="250" stroke="${s}" stroke-width="3" stroke-linecap="round"/>
+          <line x1="110" y1="265" x2="210" y2="265" stroke="${s}" stroke-width="2" stroke-opacity="0.4" stroke-linecap="round"/>
         </svg>
       `;
 
@@ -284,20 +284,20 @@ export function getDomainInfographicSvg(domain = 'general', primaryHex = '#0284c
           <!-- Outer Container -->
           <rect x="10" y="10" width="380" height="300" rx="12" fill="#ffffff" stroke="${p}" stroke-width="1" stroke-opacity="0.2" filter="url(#mShadow)"/>
 
-          <!-- Pyramid 1: Vision & Governance (Top) -->
+          <!-- Pyramid 1: Vision (Top Apex) -->
           <polygon points="200,30 280,105 120,105" fill="url(#mgmtGrad)" filter="url(#mShadow)"/>
-          <text x="200" y="70" text-anchor="middle" font-family="Cairo, sans-serif" font-size="11" font-weight="bold" fill="#ffffff">الرؤية والحوكمة</text>
-          <text x="200" y="90" text-anchor="middle" font-family="Cairo, sans-serif" font-size="9" fill="#e0f2fe">السياسات والقيادة</text>
+          <circle cx="200" cy="70" r="12" fill="#ffffff" fill-opacity="0.3"/>
+          <circle cx="200" cy="70" r="5" fill="#ffffff"/>
 
-          <!-- Pyramid 2: Strategy & Operational Process (Middle) -->
+          <!-- Pyramid 2: Strategic Process (Middle Tier) -->
           <polygon points="115,115 285,115 325,195 75,195" fill="${p}" fill-opacity="0.12" stroke="${p}" stroke-width="1.5"/>
-          <text x="200" y="148" text-anchor="middle" font-family="Cairo, sans-serif" font-size="13" font-weight="bold" fill="${p}">سلاسل القيمة والعمليات المؤسسية</text>
-          <text x="200" y="172" text-anchor="middle" font-family="Cairo, sans-serif" font-size="10" fill="#64748b">إعادة هندسة الإجراءات وتكامل الموارد البشرية</text>
+          <line x1="140" y1="155" x2="260" y2="155" stroke="${p}" stroke-width="3" stroke-linecap="round"/>
+          <line x1="160" y1="170" x2="240" y2="170" stroke="${p}" stroke-width="2" stroke-opacity="0.5" stroke-linecap="round"/>
 
-          <!-- Pyramid 3: KPIs & Impact (Base) -->
+          <!-- Pyramid 3: Foundational Base (Base Tier) -->
           <polygon points="70,205 330,205 365,285 35,285" fill="${s}" fill-opacity="0.08" stroke="${s}" stroke-width="1.5"/>
-          <text x="200" y="238" text-anchor="middle" font-family="Cairo, sans-serif" font-size="14" font-weight="bold" fill="${s}">مؤشرات الأداء والقياس المستدام (KPIs)</text>
-          <text x="200" y="262" text-anchor="middle" font-family="Cairo, sans-serif" font-size="10" fill="#475569">تحقيق الكفاءة وخفض التكاليف وتعظيم المخرجات</text>
+          <line x1="100" y1="245" x2="300" y2="245" stroke="${s}" stroke-width="3" stroke-linecap="round"/>
+          <line x1="120" y1="260" x2="280" y2="260" stroke="${s}" stroke-width="2" stroke-opacity="0.5" stroke-linecap="round"/>
         </svg>
       `;
 
@@ -306,7 +306,7 @@ export function getDomainInfographicSvg(domain = 'general', primaryHex = '#0284c
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" width="100%" height="100%">
           <defs>
             <linearGradient id="econGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="${p}" stop-opacity="0.3" />
+              <stop offset="0%" stop-color="${p}" stop-opacity="0.25" />
               <stop offset="100%" stop-color="${p}" stop-opacity="0" />
             </linearGradient>
             <filter id="eShadow" x="-10%" y="-10%" width="120%" height="120%">
@@ -317,38 +317,32 @@ export function getDomainInfographicSvg(domain = 'general', primaryHex = '#0284c
           <!-- Outer Box -->
           <rect x="10" y="10" width="380" height="300" rx="12" fill="#ffffff" stroke="${p}" stroke-width="1" stroke-opacity="0.2" filter="url(#eShadow)"/>
 
-          <!-- Title Bar -->
-          <rect x="25" y="25" width="350" height="35" rx="6" fill="${p}" fill-opacity="0.08"/>
-          <text x="200" y="47" text-anchor="middle" font-family="Cairo, sans-serif" font-size="12" font-weight="bold" fill="${p}">محددات التوازن ومؤشرات النمو الاقتصادي</text>
+          <!-- Header Bar Accent -->
+          <rect x="25" y="25" width="350" height="24" rx="6" fill="${p}" fill-opacity="0.08"/>
+          <line x1="45" y1="37" x2="160" y2="37" stroke="${p}" stroke-width="2.5" stroke-linecap="round"/>
 
           <!-- Coordinate Axes -->
-          <line x1="55" y1="260" x2="350" y2="260" stroke="#94a3b8" stroke-width="1.5"/>
-          <line x1="55" y1="75" x2="55" y2="260" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="55" y1="260" x2="350" y2="260" stroke="#cbd5e1" stroke-width="1.5"/>
+          <line x1="55" y1="65" x2="55" y2="260" stroke="#cbd5e1" stroke-width="1.5"/>
 
-          <!-- Grid Lines -->
-          <line x1="55" y1="210" x2="350" y2="210" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="55" y1="160" x2="350" y2="160" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
-          <line x1="55" y1="110" x2="350" y2="110" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3 3"/>
+          <!-- Subtle Grid Lines -->
+          <line x1="55" y1="210" x2="350" y2="210" stroke="#f1f5f9" stroke-width="1"/>
+          <line x1="55" y1="160" x2="350" y2="160" stroke="#f1f5f9" stroke-width="1"/>
+          <line x1="55" y1="110" x2="350" y2="110" stroke="#f1f5f9" stroke-width="1"/>
 
           <!-- Area Under Curve -->
           <path d="M 55 240 Q 150 210, 220 150 T 340 90 L 340 260 L 55 260 Z" fill="url(#econGrad)"/>
 
-          <!-- Trend Vector Curve -->
-          <path d="M 55 240 Q 150 210, 220 150 T 340 90" fill="none" stroke="${p}" stroke-width="3.5" stroke-linecap="round"/>
+          <!-- Primary Trend Curve -->
+          <path d="M 55 240 Q 150 210, 220 150 T 340 90" fill="none" stroke="${p}" stroke-width="3" stroke-linecap="round"/>
 
-          <!-- Counter Curve (Supply / Cost) -->
+          <!-- Counter Complementary Curve -->
           <path d="M 55 100 Q 160 140, 220 170 T 340 230" fill="none" stroke="${s}" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round"/>
 
-          <!-- Equilibrium Point Badge -->
-          <circle cx="215" cy="155" r="7" fill="${p}"/>
-          <circle cx="215" cy="155" r="12" fill="none" stroke="${p}" stroke-width="1.5" stroke-opacity="0.5"/>
-          <rect x="235" y="135" width="105" height="28" rx="5" fill="#0f172a" opacity="0.9"/>
-          <text x="287" y="153" text-anchor="middle" font-family="Cairo, sans-serif" font-size="10" font-weight="bold" fill="#ffffff">نقطة التوازن: +42%</text>
-
-          <!-- High Growth Peak Point -->
-          <circle cx="340" cy="90" r="5" fill="#16a34a"/>
-          <rect x="260" y="72" width="75" height="24" rx="4" fill="#16a34a"/>
-          <text x="297" y="88" text-anchor="middle" font-family="Cairo, sans-serif" font-size="10" font-weight="bold" fill="#ffffff">الذروة: +88%</text>
+          <!-- Convergence Focus Point -->
+          <circle cx="215" cy="155" r="6" fill="${p}"/>
+          <circle cx="215" cy="155" r="12" fill="none" stroke="${p}" stroke-width="1.5" stroke-opacity="0.4"/>
+          <circle cx="340" cy="90" r="5" fill="${s}"/>
         </svg>
       `;
 
@@ -368,24 +362,24 @@ export function getDomainInfographicSvg(domain = 'general', primaryHex = '#0284c
           <!-- Outer Container -->
           <rect x="10" y="10" width="380" height="300" rx="12" fill="#ffffff" stroke="${p}" stroke-width="1" stroke-opacity="0.2" filter="url(#medShadow)"/>
 
-          <!-- Top Shield Banner -->
+          <!-- Shield Outline -->
           <path d="M 200 25 L 340 55 L 340 120 Q 340 210, 200 285 Q 60 210, 60 120 L 60 55 Z" fill="${p}" fill-opacity="0.06" stroke="${p}" stroke-width="1.5"/>
 
-          <!-- Central Clinical Caduceus / Health Cross Emblem -->
+          <!-- Central Cross Emblem -->
           <circle cx="200" cy="115" r="38" fill="url(#medGrad)" filter="url(#medShadow)"/>
           <path d="M 194 95 H 206 V 110 H 221 V 122 H 206 V 137 H 194 V 122 H 179 V 110 H 194 Z" fill="#ffffff"/>
 
-          <!-- ECG Wave Vector -->
-          <path d="M 80 190 L 130 190 L 145 170 L 160 220 L 180 150 L 195 210 L 210 185 L 225 195 L 320 195" fill="none" stroke="${s}" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Waveform Pulse Vector -->
+          <path d="M 80 195 L 130 195 L 145 175 L 160 225 L 180 155 L 195 215 L 210 190 L 225 200 L 320 200" fill="none" stroke="${s}" stroke-width="2.5" stroke-linecap="round"/>
 
-          <!-- Clinical Evaluation Nodes -->
-          <rect x="75" y="240" width="250" height="45" rx="8" fill="#ffffff" stroke="${p}" stroke-width="1.5" filter="url(#medShadow)"/>
-          <text x="200" y="258" text-anchor="middle" font-family="Cairo, sans-serif" font-size="12" font-weight="bold" fill="${p}">منظومة التحقق السريري والتشخيص الطبي</text>
-          <text x="200" y="274" text-anchor="middle" font-family="Cairo, sans-serif" font-size="10" fill="#64748b">دقة تشخيصية موثوقة بنسبة تتجاوز 95%</text>
+          <!-- Bottom Evaluation Node Plate -->
+          <rect x="75" y="245" width="250" height="35" rx="8" fill="#ffffff" stroke="${p}" stroke-width="1.5" filter="url(#medShadow)"/>
+          <circle cx="105" cy="262" r="6" fill="${p}"/>
+          <line x1="125" y1="262" x2="280" y2="262" stroke="${p}" stroke-width="2.5" stroke-linecap="round"/>
         </svg>
       `;
 
-    default: // General & Law
+    default: // General Academic & Law
       return `
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" width="100%" height="100%">
           <defs>
@@ -403,28 +397,29 @@ export function getDomainInfographicSvg(domain = 'general', primaryHex = '#0284c
 
           <!-- Pediment / Temple Roof -->
           <polygon points="200,30 360,80 40,80" fill="url(#genGrad)" filter="url(#gShadow)"/>
-          <text x="200" y="65" text-anchor="middle" font-family="Cairo, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">أركان ومحددات التأصيل المنهجي</text>
+          <circle cx="200" cy="58" r="10" fill="#ffffff" fill-opacity="0.3"/>
+          <circle cx="200" cy="58" r="4" fill="#ffffff"/>
 
-          <!-- 3 Pillars of Governance & Research -->
+          <!-- 3 Classical Architectural Pillars -->
           <!-- Pillar 1 -->
           <rect x="70" y="90" width="60" height="150" rx="4" fill="${p}" fill-opacity="0.1" stroke="${p}" stroke-width="1.5"/>
-          <text x="100" y="150" text-anchor="middle" font-family="Cairo, sans-serif" font-size="11" font-weight="bold" fill="${p}">التأصيل</text>
-          <text x="100" y="170" text-anchor="middle" font-family="Cairo, sans-serif" font-size="9" fill="#64748b">النظري</text>
+          <line x1="85" y1="105" x2="85" y2="225" stroke="${p}" stroke-width="1" stroke-opacity="0.3"/>
+          <line x1="115" y1="105" x2="115" y2="225" stroke="${p}" stroke-width="1" stroke-opacity="0.3"/>
 
           <!-- Pillar 2 (Center) -->
           <rect x="170" y="90" width="60" height="150" rx="4" fill="${s}" fill-opacity="0.15" stroke="${s}" stroke-width="2"/>
-          <text x="200" y="150" text-anchor="middle" font-family="Cairo, sans-serif" font-size="11" font-weight="bold" fill="${s}">المعيارية</text>
-          <text x="200" y="170" text-anchor="middle" font-family="Cairo, sans-serif" font-size="9" fill="#64748b">المنهجية</text>
+          <line x1="185" y1="105" x2="185" y2="225" stroke="${s}" stroke-width="1.5" stroke-opacity="0.4"/>
+          <line x1="215" y1="105" x2="215" y2="225" stroke="${s}" stroke-width="1.5" stroke-opacity="0.4"/>
 
           <!-- Pillar 3 -->
           <rect x="270" y="90" width="60" height="150" rx="4" fill="${p}" fill-opacity="0.1" stroke="${p}" stroke-width="1.5"/>
-          <text x="300" y="150" text-anchor="middle" font-family="Cairo, sans-serif" font-size="11" font-weight="bold" fill="${p}">الأثر</text>
-          <text x="300" y="170" text-anchor="middle" font-family="Cairo, sans-serif" font-size="9" fill="#64748b">التطبيقي</text>
+          <line x1="285" y1="105" x2="285" y2="225" stroke="${p}" stroke-width="1" stroke-opacity="0.3"/>
+          <line x1="315" y1="105" x2="315" y2="225" stroke="${p}" stroke-width="1" stroke-opacity="0.3"/>
 
           <!-- Base Step Platform -->
           <rect x="40" y="245" width="320" height="20" rx="3" fill="${p}" fill-opacity="0.2"/>
           <rect x="25" y="268" width="350" height="25" rx="5" fill="#0f172a" opacity="0.9"/>
-          <text x="200" y="285" text-anchor="middle" font-family="Cairo, sans-serif" font-size="11" font-weight="bold" fill="#ffffff">تكامل معرفي ومنهجي موثق ومحكم</text>
+          <line x1="120" y1="280" x2="280" y2="280" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
         </svg>
       `;
   }

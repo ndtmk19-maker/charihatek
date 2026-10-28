@@ -61,14 +61,21 @@ MANDATORY PPT-MASTER CORE DISCIPLINES:
    - Second to Last Slide: Conclusion & Strategic Recommendations (الخاتمة وأهم النتائج والتوصيات الإجرائية المحددة)
    - Last Slide: Scholarly References (قائمة المصادر والمراجع المعتمدة وفق أسلوب APA)
 
-2. COMMUNICATIVE LAYOUT DIVERSITY FOR ALL MATALIB (تنوع الأنماط البصرية):
-   Do NOT use repetitive bullet lists. Every single Matlab (المطلب) in each Mabhath MUST be assigned a distinct, high-impact PPT-Master communicative layout:
-   - "definition": In-depth conceptual framework with definitionTerm, definition text, and structural dimensions.
-   - "comparison": In-depth contrast between two paradigms/theories/models. Provide colA and colB with 3 specific bullet comparisons each.
-   - "statistics": 3-4 quantitative metrics with numbers (e.g. "84%", "3.8x", "95%"), labels, units, and chartType ("bar", "pie", "line").
-   - "process_steps": 3-4 sequential operational/methodological phases (numbered: [step 1, step 2, step 3, step 4]).
-   - "pros_cons": Balanced matrix of advantages and challenges/risks (bullets with pros and cons).
-   - "table": Structured analytical matrix with headers and data rows.
+2. COMMUNICATIVE LAYOUT SELECTION & STRICT TOPIC RELEVANCE (اختيار الأنماط البصرية بدقة وملاءمة):
+   Assign appropriate, high-impact communicative layouts strictly tailored to the topic:
+   - "definition": Conceptual framework, terminology, and foundational dimensions (definitionTerm, paragraphs, bullets, keyPoint).
+   - "comparison": Comparative analysis contrasting two schools of thought, doctrines, models, or paradigms (colA and colB with specific items).
+   - "process_steps": Chronological phases, operational workflows, or methodological steps (numbered: [step 1, step 2, step 3]).
+   - "pros_cons": Critical evaluation, advantages vs challenges/critiques (bullets reflecting substantive arguments).
+   - "table": Analytical matrix with meaningful headers and rows.
+   - "explanation" or "bullets": Deep qualitative analysis, theoretical exposition, and scholarly critique.
+
+   STRICT MANDATE ON CHARTS & STATISTICS (ضوابط صارمة للرسومات البيانية والأعمدة والمؤشرات الرقمية):
+   - ONLY use "statistics" layout with quantitative numbers and charts (chartType: "bar" | "pie" | "line") IF AND ONLY IF the topic is inherently quantitative, empirical, economic, financial, statistical, or experimental.
+   - If the research topic is theoretical, legal, philosophical, religious, literary, historical, or purely qualitative:
+     IT IS STRICTLY FORBIDDEN to invent fake percentages, numbers, or bar charts (ممنوع منعاً باتاً اختلاق أرقام أو نسب أو رسومات بيانية وأعمدة لموضوع لا يحتاجها).
+     Instead, use qualitative analytical layouts: "explanation", "definition", "comparison", "process_steps", or "pros_cons".
+   - Every single slide must strictly adhere to the exact research topic. Never generate generic, off-topic, or placeholder text.
 
 3. EXECUTIVE TAKEAWAY PER CONTENT SLIDE (خلاصة استنتاجية تنفيذية):
    Every single Matlab MUST have a crisp, high-impact "keyPoint" (خلاصة نوعية / استنتاج محوري) summarizing the core analytical insight in 1-2 impactful sentences.
@@ -110,12 +117,13 @@ Return JSON with this EXACT structure (strictly ${mabhathCount} sections, each s
   "language": "${language || 'ar'}",
   "domain": "technology | management | economics | medicine | accounting | general",
   "themeVariant": "academic-royal | neom-tech | emerald-science | crimson-law | modern-slate",
-  "introduction": "تمهيد وسياق نظري مكثف للبحث يستعرض أهمية الموضوع وأبعاده المعرفية.",
-  "problemStatement": "صياغة دقيقة لإشكالية الدراسة والتساؤل الرئيسي الذي يجيب عنه البحث.",
+  "introduction": "تمهيد وسياق نظري مكثف للبحث يستعرض أهمية الموضوع وأبعاده المعرفية الخاصة بعنوان البحث.",
+  "problemStatement": "صياغة دقيقة لإشكالية الدراسة الخاصة بهذا الموضوع تحديداً.",
+  "problemQuestion": "التساؤل الجوهري للبحث المنبثق عن الإشكالية (مرتبط حصراً بموضوع البحث)",
   "objectives": [
-    "الهدف الأول: تشخيص واقع الإشكالية وتحديد المتغيرات الحاكمة",
-    "الهدف الثاني: قياس وتحليل الأثر التطبيقي والميداني للحلول المقترحة",
-    "الهدف الثالث: صياغة أطر استشرافية وتوصيات معيارية قابلة للتعميم"
+    "الهدف الأول: تشخيص واقع الإشكالية وتحديد المتغيرات الحاكمة للموضوع",
+    "الهدف الثاني: تحليل الأبعاد المنهجية والتطبيقية المعمقة",
+    "الهدف الثالث: صياغة أطر استشرافية وتوصيات علمية محكمة"
   ],
   "methodology": "المنهج الوصفي التحليلي المقارن",
   "sections": [
@@ -140,53 +148,56 @@ Return JSON with this EXACT structure (strictly ${mabhathCount} sections, each s
           "id": "sec-1-2",
           "title": "المطلب الثاني: دراسة مقارنة ومفاضلة معيارية بين النماذج",
           "layoutType": "comparison",
-          "paragraphs": ["مقارنة نقدية بين النماذج التقليدية والحلول الحديثة المتطورة."],
+          "paragraphs": ["مقارنة نقدية بين النماذج والحلول المتناولة في إطار البحث."],
           "comparison": {
             "colA": {
-              "title": "النماذج الكلاسيكية السائدة",
+              "title": "الجانب أو الاتجاه الأول",
               "items": [
-                "بطء في الاستجابة وارتفاع تكاليف التشغيل",
-                "صعوبة في تتبع المتغيرات وإدارة المخاطر"
+                "الخصائص المحددة والمحددات الهيكلية للاتجاه الأول",
+                "الأثر والمخرجات المترتبة على هذا المدخل"
               ]
             },
             "colB": {
-              "title": "المنظومة الحديثة المقترحة",
+              "title": "الجانب أو الاتجاه المقابل",
               "items": [
-                "معالجة متزامنة عالية السرعة والكفاءة",
-                "أتمتة ذكية وموثوقية عالية في تتبع البيانات"
+                "المزايا والمحددات النوعية للاتجاه المقابل",
+                "النتائج الميدانية والقيمة المضافة المترتبة"
               ]
             }
           },
-          "keyPoint": "التفوق الهيكلي للمنظومة الحديثة يحقق وفورات نوعية ويقلل المخاطر التشغيلية."
+          "keyPoint": "المفاضلة المعيارية تكشف نقاط القوة وتحدد الخيارات المثلى للتطبيق العلمي."
         },
         {
           "id": "sec-1-3",
-          "title": "المطلب الثالث: المؤشرات الكمية والقياس الميداني",
-          "layoutType": "statistics",
-          "chartType": "bar",
-          "paragraphs": ["تحليل إحصائي يستعرض مؤشرات الأداء والنتائج الرقمية المسجلة ميدانياً."],
-          "statistics": [
-            { "label": "مؤشر الكفاءة التشغيلية", "value": "84", "unit": "%" },
-            { "label": "معدل تقليص الفاقد الزمني", "value": "62", "unit": "%" },
-            { "label": "نسبة الدقة في المعالجة", "value": "95", "unit": "%" }
+          "title": "المطلب الثالث: الأبعاد المنهجية والمراحل الإجرائية",
+          "layoutType": "process_steps",
+          "paragraphs": ["استعراض مسار التحليل العلمي والمراحل المعتمدة لمعالجة إشكالية البحث."],
+          "numbered": [
+            "المرحلة الأولى: حصر الأدبيات وتأطير الفرضيات الموجهة للدراسة",
+            "المرحلة الثانية: التحليل النقدي المعمق واختبار محاور البحث",
+            "المرحلة الثالثة: استخلاص الدلالات وصياغة النتائج العلمية المحكمة"
           ],
-          "keyPoint": "تؤكد البيانات الميدانية قفزة نوعية في مؤشرات الأداء بعد تطبيق النموذج المقترح."
+          "keyPoint": "التتابع المنهجي الدقيق يضمن سلامة الاستنتاجات العلمية وموثوقية مخرجات البحث."
         }
       ]
     }
   ],
-  "conclusion": "تخلص الدراسة إلى أن النموذج المقترح يمثل حلاً منهجياً متكاملاً يعزز الكفاءة ويحقق التكامل المؤسسي المستدام.",
+  "conclusion": "تخلص الدراسة إلى نتائج علمية متكاملة تعالج الإشكالية المطروحة بدقة وموضوعية.",
   "conclusionPoints": [
-    "تبني أطر الحوكمة المعيارية لضمان استدامة النتائج وتكاملها",
-    "تطوير البنية التحتية والاستثمار النوعي في تنمية رأس المال البشري",
-    "بناء آليات تقييم دورية لمواكبة التطورات وتحديث الاستراتيجيات"
+    "النتيجة الأولى: إثبات صحة الفرضيات وتحديد المحددات الجوهرية",
+    "النتيجة الثانية: تقديم معالجة منهجية قابلة للبناء عليها مستقبلاً",
+    "النتيجة الثالثة: توصيات إجرائية عملية موجهة للباحثين والممارسين"
   ],
   "references": [
-    "العلوي، محمد (2023). مناهج البحث العلمي والتأصيل الأكاديمي، دار الفكر العربي، الرياض.",
-    "الغامدي، سعيد (2022). استراتيجيات التحول والتطوير المؤسسي، جامعة الملك سعود، الرياض.",
-    "Johnson, R. & Miller, K. (2021). Advanced Analytical Frameworks in Modern Research, Oxford University Press."
+    "مرجع أكاديمي أول موثق وفق APA",
+    "مرجع أكاديمي ثانٍ موثق وفق APA",
+    "مرجع أكاديمي ثالث موثق وفق APA"
   ]
-}`;
+}
+
+CRITICAL RULES:
+- IMPORTANT: DO NOT include "statistics" or "chartType" unless the user's specific topic is truly quantitative, statistical, or empirical! For theoretical, legal, philosophical, or literary topics, use ONLY qualitative layouts ("explanation", "bullets", "definition", "comparison", "process_steps", "pros_cons").
+- All content must be 100% relevant, detailed, and directly related to the user's exact topic ("${topic}").`;
 }
 
 /**
@@ -418,7 +429,7 @@ export async function generatePresentationWithAI(params) {
   parsedDraft.density = 'standard';
   if (!parsedDraft.language) parsedDraft.language = language;
   if (!parsedDraft.domain || parsedDraft.domain === 'auto') {
-    parsedDraft.domain = academicDomain !== 'auto' ? academicDomain : 'management';
+    parsedDraft.domain = academicDomain !== 'auto' ? academicDomain : 'general';
   }
 
   // Step 5: Complete

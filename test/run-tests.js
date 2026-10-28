@@ -290,6 +290,62 @@ assert(indexHtmlContent.includes('id="tab-slide-count">0<'), 'Navigation tab cou
 assert(indexHtmlContent.includes('id="thumbs-counter">0 شريحة<'), 'Thumbnails counter defaults to 0 شريحة in index.html');
 assert(indexHtmlContent.includes('id="sidebar-total-slides" style="color: var(--theme-primary); font-size: 1.05rem;">0 شريحة<'), 'Sidebar counter defaults to 0 شريحة in index.html');
 
+console.log('\n=== 11. Testing Elimination of Fake Placeholders & Conditional Charts ===');
+
+// Test 11.1: Qualitative topic with layoutType 'statistics' but NO data must NOT produce chart or dummy stats
+const qualitativeDraft = {
+  title: 'التأصيل الفلسفي للعدالة والقانون الطبيعي',
+  language: 'ar',
+  sections: [
+    {
+      title: 'المبحث الأول: المفاهيم المؤسسة',
+      subsections: [
+        {
+          title: 'المطلب الأول: البعد النظري للعدالة',
+          layoutType: 'statistics', // mistakenly flagged or from prompt
+          paragraphs: ['تستند العدالة الفلسفية إلى معايير أخلاقية غير قابلة للتجزئة أو القياس المادي.']
+        }
+      ]
+    }
+  ]
+};
+const qualSlides = splitDraftIntoSlides(qualitativeDraft, DENSITY_MODES.STANDARD);
+const hasFakeStatSlide = qualSlides.some(s => s.type === SLIDE_TYPES.STATISTICS);
+assert(!hasFakeStatSlide, 'Qualitative topic with empty stats does NOT generate a STATISTICS slide');
+
+const allSlideText = JSON.stringify(qualSlides);
+assert(!allSlideText.includes('مؤشر النمو'), 'No dummy "مؤشر النمو" placeholder injected');
+assert(!allSlideText.includes('دقة التحليل'), 'No dummy "دقة التحليل" placeholder injected');
+assert(!allSlideText.includes('عنصر 1'), 'No dummy table "عنصر 1" placeholder injected');
+assert(!allSlideText.includes('الجانب الأول'), 'No dummy comparison "الجانب الأول" placeholder injected');
+assert(!allSlideText.includes('المرحلة الأولى'), 'No dummy process "المرحلة الأولى" placeholder injected');
+
+// Test 11.2: Quantitative topic with genuine statistics DOES generate STATISTICS slide
+const quantDraft = {
+  title: 'تحليل الأداء المالي والربحية للبنوك',
+  language: 'ar',
+  sections: [
+    {
+      title: 'المبحث الأول: القوائم المالية والمؤشرات',
+      subsections: [
+        {
+          title: 'المطلب الأول: مؤشرات العائد والسيولة النقدية',
+          layoutType: 'statistics',
+          statistics: [
+            { label: 'معدل العائد على الأصول (ROA)', value: '14.2', unit: '%' },
+            { label: 'نسبة السيولة النقدية', value: '38.5', unit: '%' }
+          ],
+          paragraphs: ['أظهرت البيانات المالية للمصارف تحسناً ملحوظاً في مؤشرات السيولة.']
+        }
+      ]
+    }
+  ]
+};
+const quantSlides = splitDraftIntoSlides(quantDraft, DENSITY_MODES.STANDARD);
+const statSlide = quantSlides.find(s => s.type === SLIDE_TYPES.STATISTICS);
+assert(Boolean(statSlide), 'Genuinely quantitative topic generates a STATISTICS slide');
+assert(statSlide?.statistics?.[0]?.label === 'معدل العائد على الأصول (ROA)', 'Preserved authentic statistical labels and values');
+
 console.log(`\n========================================`);
 console.log(`Summary: ${passed} Passed, ${failed} Failed`);
 console.log(`========================================\n`);

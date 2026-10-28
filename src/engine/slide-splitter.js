@@ -227,18 +227,21 @@ function processContentBlock(block, slides, budget, lang, parentTitle = '') {
   const detectedType = classifySlideContentType(block);
   const layoutType = block.layoutType || detectedType;
 
-  // Scenario A: Structured Table
-  if (layoutType === SLIDE_TYPES.TABLE || hasTable) {
-    const tableData = block.table || { headers: ['البند', 'القيمة'], rows: [['عنصر 1', '100']] };
+  // Scenario A: Structured Table (Only if valid headers & rows exist)
+  const hasValidTable = block.table &&
+    Array.isArray(block.table.headers) && block.table.headers.length >= 2 &&
+    Array.isArray(block.table.rows) && block.table.rows.length >= 1;
+
+  if (hasValidTable) {
     const maxRows = budget.maxTableRowsPerSlide || 5;
     slides.push({
       id: `slide-table-${block.id || Math.random().toString(36).substring(7)}`,
       type: SLIDE_TYPES.TABLE,
       sectionTitle: parentTitle,
-      title: title || 'جدول البيانات والتحليل',
+      title: title || (lang === 'ar' ? 'جدول المقارنة والتحليل' : 'Analytical Table'),
       table: {
-        headers: tableData.headers,
-        rows: tableData.rows.slice(0, maxRows)
+        headers: block.table.headers,
+        rows: block.table.rows.slice(0, maxRows)
       },
       paragraphs: block.paragraphs && block.paragraphs.length > 0
         ? [summarizeParagraphToLead(block.paragraphs[0], 20)]
@@ -248,18 +251,18 @@ function processContentBlock(block, slides, budget, lang, parentTitle = '') {
     return;
   }
 
-  // Scenario B: Statistics / Data Chart
-  if (layoutType === SLIDE_TYPES.STATISTICS || hasStats) {
-    const stats = block.statistics || [
-      { label: 'مؤشر النمو', value: '45', unit: '%' },
-      { label: 'دقة التحليل', value: '88', unit: '%' }
-    ];
+  // Scenario B: Statistics / Data Chart (STRICTLY conditional: only if real quantitative data exists)
+  const hasValidStats = Array.isArray(block.statistics) &&
+    block.statistics.length >= 2 &&
+    block.statistics.every(s => s && s.label && String(s.label).trim() && s.value !== undefined && String(s.value).trim() !== '');
+
+  if (hasValidStats) {
     slides.push({
       id: `slide-stat-${block.id || Math.random().toString(36).substring(7)}`,
       type: SLIDE_TYPES.STATISTICS,
       sectionTitle: parentTitle,
-      title: title || 'مؤشرات ورسوم بيانية',
-      statistics: stats.slice(0, 4),
+      title: title || (lang === 'ar' ? 'مؤشرات وبيانات إحصائية' : 'Quantitative Metrics'),
+      statistics: block.statistics.slice(0, 4),
       paragraphs: block.paragraphs && block.paragraphs.length > 0
         ? [summarizeParagraphToLead(block.paragraphs[0], 20)]
         : [],
@@ -269,20 +272,21 @@ function processContentBlock(block, slides, budget, lang, parentTitle = '') {
     return;
   }
 
-  // Scenario C: Comparison
-  if (layoutType === SLIDE_TYPES.COMPARISON || hasComparison) {
-    const comp = block.comparison || {
-      colA: { title: 'الجانب الأول', items: ['نقطة أولى', 'نقطة ثانية'] },
-      colB: { title: 'الجانب الثاني', items: ['نقطة مقابلة أولى', 'نقطة مقابلة ثانية'] }
-    };
+  // Scenario C: Comparison (Only if both columns have real items)
+  const hasValidComp = block.comparison &&
+    block.comparison.colA && block.comparison.colB &&
+    Array.isArray(block.comparison.colA.items) && block.comparison.colA.items.length > 0 &&
+    Array.isArray(block.comparison.colB.items) && block.comparison.colB.items.length > 0;
+
+  if (hasValidComp) {
     slides.push({
       id: `slide-comp-${block.id || Math.random().toString(36).substring(7)}`,
       type: SLIDE_TYPES.COMPARISON,
       sectionTitle: parentTitle,
-      title: title || 'مقارنة مفاهيمية ومفاضلة',
+      title: title || (lang === 'ar' ? 'دراسة مقارنة ومفاضلة' : 'Comparative Analysis'),
       comparison: {
-        colA: { title: comp.colA.title, items: (comp.colA.items || []).slice(0, 3) },
-        colB: { title: comp.colB.title, items: (comp.colB.items || []).slice(0, 3) }
+        colA: { title: block.comparison.colA.title || (lang === 'ar' ? 'المحور الأول' : 'Aspect A'), items: (block.comparison.colA.items || []).slice(0, 3) },
+        colB: { title: block.comparison.colB.title || (lang === 'ar' ? 'المحور الثاني' : 'Aspect B'), items: (block.comparison.colB.items || []).slice(0, 3) }
       },
       paragraphs: block.paragraphs && block.paragraphs.length > 0
         ? [summarizeParagraphToLead(block.paragraphs[0], 20)]
@@ -292,14 +296,15 @@ function processContentBlock(block, slides, budget, lang, parentTitle = '') {
     return;
   }
 
-  // Scenario D: Process Steps / Stages
-  if (layoutType === SLIDE_TYPES.PROCESS_STEPS || (hasNumbered && detectedType === SLIDE_TYPES.PROCESS_STEPS)) {
-    const rawSteps = hasNumbered ? block.numbered : (hasBullets ? block.bullets : ['المرحلة الأولى', 'المرحلة الثانية', 'المرحلة الثالثة']);
+  // Scenario D: Process Steps / Stages (Only if real sequential items exist)
+  const hasValidSteps = (hasNumbered && block.numbered.length >= 2) || (hasBullets && block.bullets.length >= 2);
+  if (hasValidSteps && (layoutType === SLIDE_TYPES.PROCESS_STEPS || detectedType === SLIDE_TYPES.PROCESS_STEPS)) {
+    const rawSteps = hasNumbered ? block.numbered : block.bullets;
     slides.push({
       id: `slide-steps-${block.id || Math.random().toString(36).substring(7)}`,
       type: SLIDE_TYPES.PROCESS_STEPS,
       sectionTitle: parentTitle,
-      title: title || 'مراحل ومسار العمليات',
+      title: title || (lang === 'ar' ? 'مراحل ومسار التحليل' : 'Process & Stages'),
       numbered: rawSteps.slice(0, 4).map(s => stripAcademicFluff(s)),
       paragraphs: block.paragraphs && block.paragraphs.length > 0
         ? [summarizeParagraphToLead(block.paragraphs[0], 20)]
@@ -331,9 +336,18 @@ function processContentBlock(block, slides, budget, lang, parentTitle = '') {
   // Deterministically summarize and adapt section content so that it fits 100% on ONE single slide!
   const summarized = summarizeSectionForSlide(block, budget);
 
+  let finalType = SLIDE_TYPES.EXPLANATION;
+  if (layoutType === SLIDE_TYPES.TIMELINE) {
+    finalType = SLIDE_TYPES.TIMELINE;
+  } else if (layoutType === SLIDE_TYPES.DEFINITION || block.definitionTerm) {
+    finalType = SLIDE_TYPES.DEFINITION;
+  } else if (layoutType === SLIDE_TYPES.BULLETS) {
+    finalType = SLIDE_TYPES.BULLETS;
+  }
+
   slides.push({
     id: `slide-section-${block.id || Math.random().toString(36).substring(7)}`,
-    type: layoutType === SLIDE_TYPES.TIMELINE ? SLIDE_TYPES.TIMELINE : (layoutType === SLIDE_TYPES.DEFINITION ? SLIDE_TYPES.DEFINITION : layoutType),
+    type: finalType,
     sectionTitle: parentTitle,
     title: title || (lang === 'ar' ? 'محور تحليلي' : 'Analytical Section'),
     paragraphs: summarized.paragraphs,

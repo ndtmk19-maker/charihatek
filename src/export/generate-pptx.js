@@ -755,7 +755,11 @@ function renderIntroductionSlide(pptx, slide, model, theme, totalSlides, domainI
     h: 0.18
   });
 
-  slide.addText('التساؤل الرئيس: كيف تنعكس هذه المتغيرات على الأداء المؤسسي؟', {
+  const questionText = model.problemQuestion 
+    ? `التساؤل الرئيس: ${model.problemQuestion}`
+    : (isRtl ? 'التساؤل الجوهري: ما هي الأبعاد المحددة للإشكالية وكيفية معالجتها علمياً؟' : 'Core Research Question: Key problem dimensions');
+
+  slide.addText(questionText, {
     x: isRtl ? colRightX + 0.25 : colRightX + 0.5,
     y: 4.5,
     w: cardW - 0.75,
@@ -1276,7 +1280,7 @@ function renderProsConsSlide(pptx, slide, model, theme, totalSlides, domainInfo)
     h: 0.24
   });
 
-  slide.addText('المزايا والإيجابيات (Points Forts)', {
+  slide.addText(isRtl ? 'المزايا والأبعاد الإيجابية' : 'Key Advantages & Strengths', {
     x: prosX + 0.45,
     y: 1.45,
     w: 3.1,
@@ -1331,7 +1335,7 @@ function renderProsConsSlide(pptx, slide, model, theme, totalSlides, domainInfo)
     h: 0.24
   });
 
-  slide.addText('التحديات والسلبيات (Limites / Défis)', {
+  slide.addText(isRtl ? 'التحديات والأبعاد النقدية' : 'Key Challenges & Limitations', {
     x: consX + 0.45,
     y: 1.45,
     w: 3.1,
@@ -1676,16 +1680,16 @@ function renderConclusionSlide(pptx, slide, model, theme, totalSlides, domainInf
   const bullets = (Array.isArray(model.bullets) && model.bullets.length > 0)
     ? model.bullets
     : [
-        'تطبيق المخرجات في تطوير الأداء المؤسسي والحوكمة الرشيدة',
-        'بناء استراتيجيات تشغيلية مرنة تستجيب للتحديات الراهنة',
-        'فتح آفاق جديدة للبحث والتحليل المقارن وتطوير المعرفة'
+        'توظيف النتائج المستخلصة في تطوير المعرفة العلمية والتطبيقية',
+        'بناء استراتيجيات منهجية مرنة تستجيب لمتطلبات الواقع العملي',
+        'فتح آفاق بحثية جديدة للدراسات المستقبلية والتحليل المقارن'
       ];
   const recCards = bullets.slice(0, 3);
 
   const cardMeta = [
-    { title: 'التوصية الأولى: الأثر التطبيقي', icon: 'target', color: theme.pptx.primary },
-    { title: 'التوصية الثانية: البناء المؤسسي', icon: 'trendingUp', color: theme.pptx.secondary },
-    { title: 'التوصية الثالثة: الرؤية المستقبلية', icon: 'lightbulb', color: theme.pptx.accent || theme.pptx.primary }
+    { title: 'التوصية الأولى: الأثر العلمي والتطبيقي', icon: 'target', color: theme.pptx.primary },
+    { title: 'التوصية الثانية: التمكين المنهجي', icon: 'trendingUp', color: theme.pptx.secondary },
+    { title: 'التوصية الثالثة: الرؤية والآفاق المستقبلية', icon: 'lightbulb', color: theme.pptx.accent || theme.pptx.primary }
   ];
 
   // 1. Top Hero Conclusion Box
@@ -1946,7 +1950,7 @@ function renderStandardContentSlide(pptx, slide, model, theme, totalSlides, doma
     h: 0.24
   });
 
-  slide.addText(`إضاءة بحثية: ${model.keyPoint || model.paragraphs?.[0] || 'تحليل علمي موثق يستند إلى معطيات الدراسة.'}`, {
+  slide.addText(`إضاءة بحثية: ${model.keyPoint || model.paragraphs?.[0] || 'تحليل علمي موثق يستند إلى معطيات البحث.'}`, {
     x: mainX + 0.65,
     y: 4.05,
     w: mainW - 1.1,

@@ -335,7 +335,7 @@ function renderIntroductionSlideHtml(model, theme, domainInfo) {
             </p>
             <div style="margin-top: 0.75rem; padding: 0.4rem 0.6rem; background: ${theme.background}; border-radius: 6px; font-size: 0.78rem; color: ${theme.textSecondary}; display: flex; align-items: center; gap: 0.4rem;">
               ${renderIcon('helpCircle', { size: 13, color: theme.secondary })}
-              <span>التساؤل الرئيس: كيف تنعكس هذه المتغيرات على الأداء المؤسسي؟</span>
+              <span>${escapeHtml(model.problemQuestion ? `التساؤل الرئيس: ${model.problemQuestion}` : (model.isRtl ? 'التساؤل الجوهري: ما هي الأبعاد المحددة للإشكالية وكيفية معالجتها علمياً؟' : 'Core Research Question: Key problem dimensions'))}</span>
             </div>
           </div>
 
@@ -495,7 +495,7 @@ function renderProsConsSlideHtml(model, theme, domainInfo) {
         <div class="pros-card" style="border-color: #16a34a; background: #f0fdf4;">
           <div class="pros-head" style="background: #16a34a; color: #ffffff; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
             ${renderIcon('checkCircle', { size: 18, color: '#ffffff' })}
-            <span>المزايا والإيجابيات (Points Forts)</span>
+            <span>${model.isRtl ? 'المزايا والأبعاد الإيجابية' : 'Key Advantages & Strengths'}</span>
           </div>
           <ul class="pros-list">
             ${pros.map(p => `
@@ -511,7 +511,7 @@ function renderProsConsSlideHtml(model, theme, domainInfo) {
         <div class="cons-card" style="border-color: #dc2626; background: #fef2f2;">
           <div class="cons-head" style="background: #dc2626; color: #ffffff; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
             ${renderIcon('alertTriangle', { size: 18, color: '#ffffff' })}
-            <span>التحديات والسلبيات (Limites / Défis)</span>
+            <span>${model.isRtl ? 'التحديات والأبعاد النقدية' : 'Key Challenges & Limitations'}</span>
           </div>
           <ul class="cons-list">
             ${cons.map(c => `
@@ -590,7 +590,7 @@ function renderStatisticsSlideHtml(model, theme, domainInfo) {
               <span class="kpi-icon-pill" style="background: ${theme.background}; color: ${theme.primary}; display: inline-flex; align-items: center; justify-content: center;">
                 ${renderIcon(i % 2 === 0 ? 'trendingUp' : 'barChart', { size: 16, color: theme.primary })}
               </span>
-              <span class="kpi-trend-pill" style="color: #16a34a; font-weight: 700;">+ مؤشر رسمي</span>
+              <span class="kpi-trend-pill" style="color: ${theme.primary}; font-weight: 700;">مؤشر كمي</span>
             </div>
             <div class="stat-value" style="color: ${theme.primary};">
               ${escapeHtml(st.value)} <span class="stat-unit">${escapeHtml(st.unit || '')}</span>
@@ -605,9 +605,9 @@ function renderStatisticsSlideHtml(model, theme, domainInfo) {
         <div class="chart-header-row">
           <div class="chart-title" style="display: flex; align-items: center; gap: 0.4rem;">
             ${renderIcon('barChart', { size: 18, color: theme.primary })}
-            <span>تمثيل بياني ديناميكي (يتم تصديره كـ Native PowerPoint Chart)</span>
+            <span>تمثيل بياني للمؤشرات والبيانات الكمية</span>
           </div>
-          <span class="chart-badge-tag" style="background: ${theme.primary}; color: #ffffff;">مخطط أعمدة</span>
+          <span class="chart-badge-tag" style="background: ${theme.primary}; color: #ffffff;">${model.chartType === 'pie' ? 'مخطط دائري' : (model.chartType === 'line' ? 'مخطط خطي' : 'مخطط أعمدة')}</span>
         </div>
 
         <div class="chart-bars-visual">
@@ -662,7 +662,7 @@ function renderTableSlideHtml(model, theme, domainInfo) {
   const table = model.table || { headers: [], rows: [] };
   return `
     <div class="content-layout">
-      ${renderSlideTopHeader(model, theme, 'جدول بيانات محاسبي منظم', 'table')}
+      ${renderSlideTopHeader(model, theme, model.isRtl ? 'جدول المقارنة والتحليل الأكاديمي' : 'Analytical Data Matrix', 'table')}
       <div class="table-container">
         <table class="academic-table" style="border-color: ${theme.border}">
           <thead>
@@ -693,18 +693,18 @@ function renderConclusionSlideHtml(model, theme, domainInfo) {
   let bullets = (Array.isArray(model.bullets) && model.bullets.length > 0)
     ? model.bullets
     : [
-        'تطبيق المخرجات في تطوير الأداء المؤسسي والحوكمة الرشيدة',
-        'بناء استراتيجيات تشغيلية مرنة تستجيب للتحديات الراهنة',
-        'فتح آفاق جديدة للبحث والتحليل المقارن وتطوير المعرفة'
+        'توظيف النتائج المستخلصة في تطوير المعرفة العلمية والتطبيقية',
+        'بناء استراتيجيات منهجية مرنة تستجيب لمتطلبات الواقع العملي',
+        'فتح آفاق بحثية جديدة للدراسات المستقبلية والتحليل المقارن'
       ];
 
   // Limit to at most 3 punchy recommendation cards
   const recCards = bullets.slice(0, 3);
 
   const cardMeta = [
-    { title: 'التوصية الأولى: الأثر التطبيقي', icon: 'target', color: theme.primary },
-    { title: 'التوصية الثانية: البناء المؤسسي', icon: 'trendingUp', color: theme.secondary },
-    { title: 'التوصية الثالثة: الرؤية المستقبلية', icon: 'lightbulb', color: theme.accent || theme.primary }
+    { title: 'التوصية الأولى: الأثر العلمي والتطبيقي', icon: 'target', color: theme.primary },
+    { title: 'التوصية الثانية: التمكين المنهجي', icon: 'trendingUp', color: theme.secondary },
+    { title: 'التوصية الثالثة: الرؤية والآفاق المستقبلية', icon: 'lightbulb', color: theme.accent || theme.primary }
   ];
 
   return `
@@ -779,6 +779,7 @@ function renderReferencesSlideHtml(model, theme, domainInfo) {
  * 12. Standard Explanation & Bullets - Side Panel Illustration & Keypoint Card
  */
 function renderStandardSlideHtml(model, theme, domainInfo, domain = 'general') {
+  const keyTakeaway = model.keyPoint || (model.paragraphs && model.paragraphs[0]) || 'تحليل علمي موثق يستند إلى معطيات البحث.';
   return `
     <div class="content-layout">
       ${renderSlideTopHeader(model, theme, 'عرض تحليلي وتفصيلي', 'fileText')}
@@ -800,25 +801,28 @@ function renderStandardSlideHtml(model, theme, domainInfo, domain = 'general') {
               `).join('')}
             </ul>
           ` : ''}
-
-          <!-- Floating Keypoint Callout -->
-          <div class="slide-keypoint-callout" style="border-right-color: ${theme.primary}; background: ${theme.background}; color: #0f172a !important;">
-            <div style="display: flex; align-items: center; gap: 0.4rem; font-weight: 700; color: ${theme.primary}; margin-bottom: 0.25rem;">
-              ${renderIcon('lightbulb', { size: 16, color: theme.primary })}
-              <span>إضاءة بحثية وخلاصة مركزة:</span>
-            </div>
-            <div style="color: #0f172a !important; font-weight: 500;">${escapeHtml(model.keyPoint || model.paragraphs?.[0] || 'تحليل علمي موثق يستند إلى معطيات الدراسة الميدانية.')}</div>
-          </div>
         </div>
 
-        <!-- Side Visual Architectural Diagram Card -->
-        <div class="standard-side-visual-card" style="border-color: ${theme.border}; background: ${theme.surface}; padding: 0.6rem; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;">
-          <div class="domain-diagram-box" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+        <!-- Side Visual Architectural Card -->
+        <div class="standard-side-visual-card" style="border-color: ${theme.border}; background: ${theme.surface}; padding: 0.85rem; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden;">
+          
+          <div class="slide-keypoint-side-box" style="background: ${theme.background}; border: 1px solid ${theme.border}; border-top: 3px solid ${theme.primary}; border-radius: 8px; padding: 0.85rem;">
+            <div style="display: flex; align-items: center; gap: 0.4rem; font-weight: 700; color: ${theme.primary}; margin-bottom: 0.35rem; font-size: 0.88rem;">
+              ${renderIcon('lightbulb', { size: 16, color: theme.primary })}
+              <span>إضاءة بحثية واستنتاج محوري:</span>
+            </div>
+            <p style="color: #0f172a !important; font-weight: 600; font-size: 0.86rem; line-height: 1.6; margin: 0;">
+              ${escapeHtml(keyTakeaway)}
+            </p>
+          </div>
+
+          <div class="domain-diagram-box" style="width: 100%; flex: 1; min-height: 130px; display: flex; align-items: center; justify-content: center; margin: 0.5rem 0;">
             ${getDomainInfographicSvg(domain, theme.primary, theme.secondary)}
           </div>
-          <div style="margin-top: 0.35rem; display: flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; color: ${theme.primary}; font-weight: 700;">
-            ${renderIcon(domainInfo.iconKey, { size: 12, color: theme.primary })}
-            <span>${domainInfo.badge}</span>
+
+          <div style="display: flex; align-items: center; justify-content: center; gap: 0.35rem; font-size: 0.72rem; color: ${theme.primary}; font-weight: 700; padding-top: 0.25rem; border-top: 1px solid ${theme.border};">
+            ${renderIcon('bookmark', { size: 12, color: theme.primary })}
+            <span>تأصيل منهجي موثق</span>
           </div>
         </div>
       </div>
@@ -834,7 +838,7 @@ function renderSlideTopHeader(model, theme, defaultCategory = '', defaultIconKey
           ${renderIcon(defaultIconKey, { size: 14, color: theme.primary })}
           <span>${escapeHtml(model.sectionTitle || defaultCategory)}</span>
         </div>
-        ${model.asset ? `<img src="${model.asset.path}" class="slide-corner-asset" alt="" />` : ''}
+        ${model.asset ? `<img src="${model.asset.path.startsWith('/') ? '.' + model.asset.path : model.asset.path}" class="slide-corner-asset" alt="" />` : ''}
       </div>
       <h2 class="slide-main-title" style="color: ${theme.headerBg}">
         ${escapeHtml(model.title)}
